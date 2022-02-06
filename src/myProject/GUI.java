@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * @version v.1.0.0 date:02/02/2022
  * @autors Laura Jaimes, laura.jaimes@correounivalle.edu.co, 2040430-3743
@@ -12,18 +13,17 @@ import java.awt.event.ActionListener;
  */
 public class GUI extends JFrame {
 
-    public static final String MENSAJE_INICIO ="Hola!!, bienvenido a I KNOW THAT WORD. \n"+
+    public static final String MENSAJE_INICIO = "Hola!!, bienvenido a I KNOW THAT WORD. \n" +
             "El juego consiste en presentar al jugador una secuencia de palabras de una en una, es decir,\n"
-            +""
-   ;
+            + "";
 
     private Header headerProject;
-    private Timer timer;
+    private Timer timer1, timer2;
     private Escucha escucha;
+    private ModelUsuario modelUsuario;
     private JTextArea palabras;
-    private JPanel panelPalabras, panelUserName, panelNivel,separador;
+    private JPanel panelUserName, panelNivel, separador;
     private JButton botonSalida, botonAyuda, botonSi, botonNo, botonJugar;
-    private FileManager fileManager;
 
 
     /**
@@ -52,10 +52,11 @@ public class GUI extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
         escucha = new Escucha();
+        modelUsuario = new ModelUsuario();
         //Set up JComponents
         headerProject = new Header("I know that word!!", Color.BLACK);
         headerProject.setFont(new Font("times new roman", Font.BOLD, 15));
-        headerProject.setPreferredSize(new Dimension(200,70));
+        headerProject.setPreferredSize(new Dimension(200, 70));
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
@@ -67,7 +68,7 @@ public class GUI extends JFrame {
 
         palabras = new JTextArea();
         palabras.setBorder(BorderFactory.createTitledBorder("Palabras: "));
-        palabras.setPreferredSize(new Dimension(500,200));
+        palabras.setPreferredSize(new Dimension(300, 200));
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridwidth = 2;
@@ -75,21 +76,9 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(palabras, constraints);
 
-        /*panelPalabras = new JPanel();
-        panelPalabras.setBorder(BorderFactory.createTitledBorder("Palabras: "));
-        panelPalabras.setPreferredSize(new Dimension(500,200));
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        constraints.gridwidth = 2;
-        constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.CENTER;
-        this.add(panelPalabras, constraints);
-        /*panelPalabras.setBackground(Color.darkGray);
-        panelPalabras.setForeground(Color.WHITE);*/
-
         panelUserName = new JPanel();
         panelUserName.setBorder(BorderFactory.createTitledBorder("UserName: "));
-        panelUserName.setPreferredSize(new Dimension(100,35));
+        panelUserName.setPreferredSize(new Dimension(100, 35));
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
@@ -101,17 +90,17 @@ public class GUI extends JFrame {
 
         panelNivel = new JPanel();
         panelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: "));
-        panelNivel.setPreferredSize(new Dimension(100,35));
-        constraints.gridx = 2;
+        panelNivel.setPreferredSize(new Dimension(100, 35));
+        constraints.gridx = 3;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.NONE;
-        constraints.anchor = GridBagConstraints.LINE_END;
+        constraints.anchor = GridBagConstraints.LINE_START;
         this.add(panelNivel, constraints);
         //panelUserName.setForeground(Color.WHITE);
 
         separador = new JPanel();
-        separador.setPreferredSize(new Dimension(100,45));
+        separador.setPreferredSize(new Dimension(100, 45));
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.gridwidth = 4;
@@ -120,7 +109,7 @@ public class GUI extends JFrame {
         this.add(separador, constraints);
 
         botonSalida = new JButton("Salir");
-        botonSalida.setPreferredSize(new Dimension(100,45));
+        botonSalida.setPreferredSize(new Dimension(100, 45));
         constraints.gridx = 3;
         constraints.gridy = 4;
         constraints.gridwidth = 1;
@@ -132,7 +121,7 @@ public class GUI extends JFrame {
         //panelUserName.setForeground(Color.WHITE);
 
         botonAyuda = new JButton("Ayuda");
-        botonAyuda.setPreferredSize(new Dimension(100,45));
+        botonAyuda.setPreferredSize(new Dimension(100, 45));
         constraints.gridx = 0;
         constraints.gridy = 4;
         constraints.gridwidth = 1;
@@ -142,7 +131,7 @@ public class GUI extends JFrame {
         botonAyuda.addActionListener(escucha);
 
         botonSi = new JButton("Si");
-        botonSi.setPreferredSize(new Dimension(100,45));
+        botonSi.setPreferredSize(new Dimension(100, 45));
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 1;
@@ -153,10 +142,8 @@ public class GUI extends JFrame {
 
         botonSi.addActionListener(escucha);
 
-
-
         botonNo = new JButton("No");
-        botonNo.setPreferredSize(new Dimension(100,45));
+        botonNo.setPreferredSize(new Dimension(100, 45));
         constraints.gridx = 2;
         constraints.gridy = 2;
         constraints.gridwidth = 1;
@@ -167,7 +154,7 @@ public class GUI extends JFrame {
         botonNo.addActionListener(escucha);
 
         botonJugar = new JButton("Jugar");
-        botonJugar.setPreferredSize(new Dimension(100,45));
+        botonJugar.setPreferredSize(new Dimension(100, 45));
         constraints.gridx = 1;
         constraints.gridy = 4;
         constraints.gridwidth = 2;
@@ -176,6 +163,10 @@ public class GUI extends JFrame {
         this.add(botonJugar, constraints);
         botonJugar.addActionListener(escucha);
 
+        timer1 = new Timer(1000, escucha);
+
+
+        timer2 = new Timer(7000, escucha);
 
 
     }
@@ -195,21 +186,45 @@ public class GUI extends JFrame {
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha implements ActionListener{
+    private class Escucha implements ActionListener {
+        private int counter;
+
+        public Escucha() {
+            counter = 0;
+        }
+
         Diccionario diccionario = new Diccionario();
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getSource() == botonJugar){
-                palabras.setText(diccionario.get_Frase_In_Nivel(1));
-                botonNo.setEnabled(true);
-                botonSi.setEnabled(true);
+            timer1.start();
+
+            if (e.getSource()==timer1) {
+                    counter++;
+                    if (counter <= 10) {
+                        palabras.setText(diccionario.get_Frase_In_Nivel(1));
+                    } else {
+                        timer1.stop();
+                        botonNo.setEnabled(true);
+                        botonSi.setEnabled(true);
+                    }
+
+                } else {
+                    timer1.start();
+                    counter = 0;
+                    botonJugar.setEnabled(false);
+                    botonJugar.removeActionListener(escucha);
+                }
+
             }
-            if(e.getSource()==botonNo || e.getSource()==botonSi){
-                JOptionPane.showMessageDialog(null,"En process");
-            }
+
 
         }
 
     }
-}
+
+
+
+
+
 

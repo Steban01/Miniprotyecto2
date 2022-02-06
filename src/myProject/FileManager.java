@@ -9,7 +9,8 @@ import java.util.ArrayList;
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
  */
 public class FileManager {
-    public static final String PATH = "src/myProject/diccionario.txt";
+    public static final String PATH_WORDS = "src/myProject/diccionario.txt";
+    public static final String PATH_USERS = "src/myProject/usuarios.txt";
     private FileReader fileReader;
     private BufferedReader input;
     private FileWriter fileWriter;
@@ -20,7 +21,7 @@ public class FileManager {
         ArrayList<String> frases = new ArrayList<String>();
 
         try {
-            fileReader = new FileReader(PATH);
+            fileReader = new FileReader(PATH_WORDS);
             input = new BufferedReader(fileReader);
             String line = input.readLine();
             while (line != null) {
@@ -43,7 +44,7 @@ public class FileManager {
 
     public void escribirTexto(String linea) {
         try {
-            fileWriter = new FileWriter(PATH, true);
+            fileWriter = new FileWriter(PATH_USERS, true);
             output = new BufferedWriter(fileWriter);
             output.write(linea);
             output.newLine();

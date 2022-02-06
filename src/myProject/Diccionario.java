@@ -19,81 +19,68 @@ public class Diccionario {
 
     public String get_Frase_In_Nivel(int nivel) {
         if (nivel == 1) {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 11; i++) {
                 Random aleatorio = new Random();
-                return diccionario.get(aleatorio.nextInt(20));
+                return diccionario.get(aleatorio.nextInt(10)+1);
             }
         } else if (nivel == 2) {
-            for (int i = 0; i < 40; i++) {
+            for (int i = 0; i < 21; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(40));
             }
 
         } else if (nivel == 3) {
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 26; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(50) + 1);
             }
 
         } else if (nivel == 4) {
-            for (int i = 0; i < 60; i++) {
+            for (int i = 0; i < 31; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(60) + 1);
             }
 
         } else if (nivel == 5) {
-            for (int i = 0; i < 70; i++) {
+            for (int i = 0; i < 36; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(70) + 1);
             }
 
         } else if (nivel == 6) {
-            for (int i = 0; i < 80; i++) {
+            for (int i = 0; i < 41; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(80) + 1);
             }
 
         } else if (nivel == 7) {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 51; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(100) + 1);
             }
 
         } else if (nivel == 8) {
-            for (int i = 0; i < 120; i++) {
+            for (int i = 0; i < 61; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(120) + 1);
             }
 
         } else if (nivel == 9) {
-            for (int i = 0; i < 140; i++) {
+            for (int i = 0; i < 71; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(140) + 1);
             }
 
         } else if (nivel == 10) {
-            for (int i = 0; i < 200; i++) {
+            for (int i = 0; i < 101; i++) {
                 Random aleatorio = new Random();
                 return diccionario.get(aleatorio.nextInt(200) + 1);
             }
 
         }
-        return "xd";
+        return "Fin";
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 20; i++) {
-            Diccionario aja = new Diccionario();
-            System.out.println(aja.get_Frase_In_Nivel(1));
-            Thread.sleep(1000);
-        }
-        System.out.println("pasaste al nivel 2");
-        for (int i = 0; i < 40; i++) {
-            Diccionario aja = new Diccionario();
 
-            System.out.println(aja.get_Frase_In_Nivel(2));
-            Thread.sleep(1000);
-        }
-    }
 }

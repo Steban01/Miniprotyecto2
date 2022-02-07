@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 /**
@@ -14,16 +16,21 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame {
 
     public static final String MENSAJE_INICIO = "Hola!!, bienvenido a I KNOW THAT WORD. \n" +
-            "El juego consiste en presentar al jugador una secuencia de palabras de una en una, es decir,\n"
-            + "";
+            "Al darle el boton jugar, comenzaran a salir una serie de palabras a memorizar, es decir,\n"
+            + "aparece una palabra, dura 5 segundos en pantalla, luego se borra y aparece la siguiente.\n"
+            + "Usted debera de memorizar las palabras que salgan, despues de la serie de palabras a memorizar\n"
+            + "el juego presentará un listado con el doble de palabras que se mostraron.\n"
+            + "Por cada una las palabras usted deberá indicar si la palabra estaba o no contenida en el\n"
+            + "listado a memorizar y tendrá un tiempo de 7 segundos para responder, en caso de no hacerlo se tomará\n"
+            + "como un error.";
 
     private Header headerProject;
     private Timer timer1, timer2;
-    private Escucha escucha;
+    private Escucha escucha1, escucha2,escucha3,escucha4, escucha5;
     private ModelUsuario modelUsuario;
     private JTextArea palabras;
     private JPanel panelUserName, panelNivel, separador;
-    private JButton botonSalida, botonAyuda, botonSi, botonNo, botonJugar;
+    private JButton botonSalida, botonAyuda, botonSi, botonNo, botonJugar, botonPalabras;
 
 
     /**
@@ -51,7 +58,11 @@ public class GUI extends JFrame {
         this.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
-        escucha = new Escucha();
+        escucha1 = new Escucha();
+        escucha2 = new Escucha();
+        escucha3 = new Escucha();
+
+
         modelUsuario = new ModelUsuario();
         //Set up JComponents
         headerProject = new Header("I know that word!!", Color.BLACK);
@@ -116,7 +127,7 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_END;
         this.add(botonSalida, constraints);
-        botonSalida.addActionListener(escucha);
+        botonSalida.addMouseListener(escucha2);
         //panelUserName.setBackground(Color.darkGray);
         //panelUserName.setForeground(Color.WHITE);
 
@@ -128,8 +139,7 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_START;
         this.add(botonAyuda, constraints);
-        botonAyuda.addActionListener(escucha);
-
+        botonAyuda.addMouseListener(escucha2);
         botonSi = new JButton("Si");
         botonSi.setPreferredSize(new Dimension(100, 45));
         constraints.gridx = 1;
@@ -139,8 +149,7 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonSi, constraints);
         botonSi.setEnabled(false);
-
-        botonSi.addActionListener(escucha);
+        botonSi.addMouseListener(escucha3);
 
         botonNo = new JButton("No");
         botonNo.setPreferredSize(new Dimension(100, 45));
@@ -151,7 +160,7 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.LINE_END;
         this.add(botonNo, constraints);
         botonNo.setEnabled(false);
-        botonNo.addActionListener(escucha);
+        botonNo.addActionListener(escucha3);
 
         botonJugar = new JButton("Jugar");
         botonJugar.setPreferredSize(new Dimension(100, 45));
@@ -161,12 +170,18 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonJugar, constraints);
-        botonJugar.addActionListener(escucha);
+        botonJugar.addActionListener(escucha1);
 
-        timer1 = new Timer(1000, escucha);
+        botonPalabras = new JButton("Ronda de palabras");
+        botonPalabras.setPreferredSize(new Dimension(100, 45));
+        this.add(botonPalabras, constraints);
+        palabras.add(botonPalabras);
+        botonPalabras.addActionListener(escucha5);
 
+        timer1 = new Timer(1000, escucha1);
 
-        timer2 = new Timer(7000, escucha);
+        timer2 = new Timer(2000, escucha5);
+
 
 
     }
@@ -186,42 +201,122 @@ public class GUI extends JFrame {
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha implements ActionListener {
-        private int counter;
+    private class Escucha implements ActionListener, MouseListener {
+        private int counter, counter2;
+
 
         public Escucha() {
             counter = 0;
+            counter2 = 0;
         }
 
         Diccionario diccionario = new Diccionario();
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            timer1.start();
-
-            if (e.getSource()==timer1) {
-                    counter++;
-                    if (counter <= 10) {
-                        palabras.setText(diccionario.get_Frase_In_Nivel(1));
-                    } else {
-                        timer1.stop();
-                        botonNo.setEnabled(true);
-                        botonSi.setEnabled(true);
-                    }
-
-                } else {
-                    timer1.start();
-                    counter = 0;
+            if(e.getSource() == timer1){
+                counter++;
+                if (counter <11) {
+                    palabras.setText(diccionario.get_Frase_In_Nivel_Correcta(1));
+                }else {
+                    timer1.stop();
+                    botonNo.setEnabled(true);
+                    botonSi.setEnabled(true);
                     botonJugar.setEnabled(false);
-                    botonJugar.removeActionListener(escucha);
+                    timer1.restart();
+                    counter2 ++;
+                    if(counter2<21){
+                        palabras.setText(diccionario.get_Frase_in_Nivel(1));
+                        panelUserName.setBorder(BorderFactory.createTitledBorder("UserName: aaaaaaaa"));
+                    }
+                    else{
+                        timer1.stop();
+                        counter2 = 0;
+                        botonJugar.setEnabled(true);
+                    }
                 }
+            }
+            else{
+                timer1.start();
+                counter=0;
+            }
+            /*if(counter==11){
+                timer1.restart();
+                counter = 0;
+                counter++;
+                if(counter<21){
+                    palabras.setText(diccionario.get_Frase_in_Nivel(1));
+                }
+                else{
+                    timer1.stop();
+                }
+                timer1.stop();
+            }
+             */
+            /*if (e.getSource() == timer2) {
+                timer2.start();
+                counter++;
+                if (counter <21) {
+                    palabras.setText(diccionario.get_Frase_in_Nivel(1));
+                }else {
+                    timer2.stop();
+
+                }
+            }else{
+                timer2.start();
+                counter = 0;
+                botonJugar.setEnabled(false);
+                botonJugar.removeActionListener(escucha2);
+            }*/
+        }
+
+
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getSource() == botonAyuda && e.getClickCount() == 1) {
+                JOptionPane.showMessageDialog(null, MENSAJE_INICIO);
+            }
+            if (e.getSource() == botonSalida && e.getClickCount() == 1) {
+                System.exit(0);
+            }
+            if(e.getSource()==botonNo && e.getClickCount()==1){
+
+            }
+            if(e.getSource()==botonSi && e.getClickCount()==1){
 
             }
 
 
         }
 
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
     }
+}
+
+
+
+
+
+
 
 
 

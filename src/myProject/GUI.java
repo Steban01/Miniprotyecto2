@@ -26,7 +26,7 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private Timer timer1, timer2;
-    private Escucha escucha1, escucha2,escucha3,escucha4, escucha5;
+    private Escucha escucha;
     private ModelUsuario modelUsuario;
     private JTextArea palabras;
     private JPanel panelUserName, panelNivel, separador;
@@ -58,10 +58,7 @@ public class GUI extends JFrame {
         this.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
-        escucha1 = new Escucha();
-        escucha2 = new Escucha();
-        escucha3 = new Escucha();
-
+        escucha = new Escucha();
 
         modelUsuario = new ModelUsuario();
         //Set up JComponents
@@ -127,7 +124,7 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_END;
         this.add(botonSalida, constraints);
-        botonSalida.addMouseListener(escucha2);
+        botonSalida.addMouseListener(escucha);
         //panelUserName.setBackground(Color.darkGray);
         //panelUserName.setForeground(Color.WHITE);
 
@@ -139,7 +136,7 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_START;
         this.add(botonAyuda, constraints);
-        botonAyuda.addMouseListener(escucha2);
+        botonAyuda.addMouseListener(escucha);
         botonSi = new JButton("Si");
         botonSi.setPreferredSize(new Dimension(100, 45));
         constraints.gridx = 1;
@@ -149,7 +146,7 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonSi, constraints);
         botonSi.setEnabled(false);
-        botonSi.addMouseListener(escucha3);
+        botonSi.addMouseListener(escucha);
 
         botonNo = new JButton("No");
         botonNo.setPreferredSize(new Dimension(100, 45));
@@ -160,7 +157,7 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.LINE_END;
         this.add(botonNo, constraints);
         botonNo.setEnabled(false);
-        botonNo.addActionListener(escucha3);
+        botonNo.addActionListener(escucha);
 
         botonJugar = new JButton("Jugar");
         botonJugar.setPreferredSize(new Dimension(100, 45));
@@ -170,18 +167,17 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonJugar, constraints);
-        botonJugar.addActionListener(escucha1);
+        botonJugar.addActionListener(escucha);
 
         botonPalabras = new JButton("Ronda de palabras");
         botonPalabras.setPreferredSize(new Dimension(100, 45));
         this.add(botonPalabras, constraints);
         palabras.add(botonPalabras);
-        botonPalabras.addActionListener(escucha5);
+        botonPalabras.addActionListener(escucha);
 
-        timer1 = new Timer(1000, escucha1);
+        timer1 = new Timer(1500, escucha);
 
-        timer2 = new Timer(2000, escucha5);
-
+        timer2 = new Timer(1500, escucha);
 
 
     }
@@ -210,14 +206,14 @@ public class GUI extends JFrame {
             counter2 = 0;
         }
 
-        Diccionario diccionario = new Diccionario();
+        Diccionario words = new Diccionario();
 
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() == timer1){
                 counter++;
-                if (counter <11) {
-                    palabras.setText(diccionario.get_Frase_In_Nivel_Correcta(1));
+                if (counter <=10) {
+                    palabras.setText("XD");
                 }else {
                     timer1.stop();
                     botonNo.setEnabled(true);
@@ -225,13 +221,12 @@ public class GUI extends JFrame {
                     botonJugar.setEnabled(false);
                     timer1.restart();
                     counter2 ++;
-                    if(counter2<21){
-                        palabras.setText(diccionario.get_Frase_in_Nivel(1));
-                        panelUserName.setBorder(BorderFactory.createTitledBorder("UserName: aaaaaaaa"));
+                    if(counter2<=20){
+                        palabras.setText("a");//words.get_Frase_in_Nivel(1));
                     }
                     else{
                         timer1.stop();
-                        counter2 = 0;
+                        counter2=0;
                         botonJugar.setEnabled(true);
                     }
                 }
@@ -239,6 +234,7 @@ public class GUI extends JFrame {
             else{
                 timer1.start();
                 counter=0;
+                botonJugar.removeActionListener(escucha);
             }
             /*if(counter==11){
                 timer1.restart();

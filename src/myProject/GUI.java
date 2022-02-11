@@ -28,6 +28,7 @@ public class GUI extends JFrame {
     private Timer timer1, timer2;
     private Escucha escucha;
     private ModelUsuario modelUsuario;
+    private Diccionario words;
     private JTextArea palabras;
     private JPanel panelUserName, panelNivel, separador;
     private JButton botonSalida, botonAyuda, botonSi, botonNo, botonJugar, botonPalabras;
@@ -213,7 +214,7 @@ public class GUI extends JFrame {
             if(e.getSource() == timer1){
                 counter++;
                 if (counter <=10) {
-                    palabras.setText("XD");
+                    palabras.setText("xd");
                 }else {
                     timer1.stop();
                     botonNo.setEnabled(true);
@@ -276,10 +277,11 @@ public class GUI extends JFrame {
             if (e.getSource() == botonSalida && e.getClickCount() == 1) {
                 System.exit(0);
             }
-            if(e.getSource()==botonNo && e.getClickCount()==1){
+            if(e.getSource()==botonNo && e.getClickCount()==1 ){   //                return palabrasNivelCorrectas;
+
 
             }
-            if(e.getSource()==botonSi && e.getClickCount()==1){
+            if(e.getSource()==botonSi && e.getClickCount()==1 ){ //xd.validarpalabra==true
 
             }
 

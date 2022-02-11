@@ -15,7 +15,7 @@ public class ModelUsuario {
      * Class Constructor
      */
     public ModelUsuario(){
-        nivel = 0;
+        nivel = 1;
         aciertos = 0;
     }
 

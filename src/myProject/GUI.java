@@ -211,30 +211,28 @@ public class GUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getSource() == timer1){
+            if (e.getSource() == timer1) {
                 counter++;
-                if (counter <=10) {
+                if (counter <= 10) {
                     palabras.setText("xd");
-                }else {
+                } else {
                     timer1.stop();
                     botonNo.setEnabled(true);
                     botonSi.setEnabled(true);
                     botonJugar.setEnabled(false);
                     timer1.restart();
-                    counter2 ++;
-                    if(counter2<=20){
+                    counter2++;
+                    if (counter2 <= 20) {
                         palabras.setText("a");//words.get_Frase_in_Nivel(1));
-                    }
-                    else{
+                    } else {
                         timer1.stop();
-                        counter2=0;
+                        counter2 = 0;
                         botonJugar.setEnabled(true);
                     }
                 }
-            }
-            else{
+            } else {
                 timer1.start();
-                counter=0;
+                counter = 0;
                 botonJugar.removeActionListener(escucha);
             }
             /*if(counter==11){
@@ -268,7 +266,6 @@ public class GUI extends JFrame {
         }
 
 
-
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == botonAyuda && e.getClickCount() == 1) {
@@ -277,14 +274,12 @@ public class GUI extends JFrame {
             if (e.getSource() == botonSalida && e.getClickCount() == 1) {
                 System.exit(0);
             }
-            if(e.getSource()==botonNo && e.getClickCount()==1 ){   //                return palabrasNivelCorrectas;
-
-
-            }
-            if(e.getSource()==botonSi && e.getClickCount()==1 ){ //xd.validarpalabra==true
+            if (e.getSource() == botonNo && e.getClickCount() == 1 && words.validarPalabra() == false) {
 
             }
+            if (e.getSource() == botonSi && e.getClickCount() == 1 && words.validarPalabra() == true) {
 
+            }
 
         }
 

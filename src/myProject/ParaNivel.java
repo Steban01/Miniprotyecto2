@@ -87,7 +87,7 @@ public class ParaNivel {
     public boolean validarPalabra() {
         for(int i = 0; i<=diccionario.todas_las_palabras(1).size();i++){
             if(diccionario.todas_las_palabras(1).get(i).contains(diccionario.recorrerLista())){
-                validar =true;
+                validar = true;
             }
             else{
                 validar = false;

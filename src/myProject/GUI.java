@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
 
 
 /**
@@ -28,7 +29,11 @@ public class GUI extends JFrame {
     private Timer timer1, timer2;
     private Escucha escucha;
     private ModelUsuario modelUsuario;
-    private Diccionario words;
+    private ParaNivel nivel;
+    private int nivell;
+    private FileManager fileManager;
+    private String userName;
+    private ModelPalabras words;
     private JTextArea palabras;
     private JPanel panelUserName, panelNivel, separador;
     private JButton botonSalida, botonAyuda, botonSi, botonNo, botonJugar, botonPalabras;
@@ -54,14 +59,15 @@ public class GUI extends JFrame {
      * create Listener and control Objects used for the GUI class
      */
     private void initGUI() {
-        Diccionario diccionario = new Diccionario();
         //Set up JFrame Container's Layout
         this.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
         escucha = new Escucha();
-
+        words = new ModelPalabras();
         modelUsuario = new ModelUsuario();
+        nivel = new ParaNivel();
+        fileManager = new FileManager();
         //Set up JComponents
         headerProject = new Header("I know that word!!", Color.BLACK);
         headerProject.setFont(new Font("times new roman", Font.BOLD, 15));
@@ -78,6 +84,7 @@ public class GUI extends JFrame {
         palabras = new JTextArea();
         palabras.setBorder(BorderFactory.createTitledBorder("Palabras: "));
         palabras.setPreferredSize(new Dimension(300, 200));
+        palabras.setEditable(false);
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridwidth = 2;
@@ -86,7 +93,7 @@ public class GUI extends JFrame {
         this.add(palabras, constraints);
 
         panelUserName = new JPanel();
-        panelUserName.setBorder(BorderFactory.createTitledBorder("UserName: "));
+        panelUserName.setBorder(BorderFactory.createTitledBorder("UserName: "+userName));
         panelUserName.setPreferredSize(new Dimension(100, 35));
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -98,7 +105,7 @@ public class GUI extends JFrame {
         panelUserName.setForeground(Color.WHITE);*/
 
         panelNivel = new JPanel();
-        panelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: "));
+        panelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: "+nivel.getNivel()));
         panelNivel.setPreferredSize(new Dimension(100, 35));
         constraints.gridx = 3;
         constraints.gridy = 0;
@@ -176,10 +183,13 @@ public class GUI extends JFrame {
         palabras.add(botonPalabras);
         botonPalabras.addActionListener(escucha);
 
-        timer1 = new Timer(1000, escucha);
-        timer2 = new Timer(2000, escucha);
+        timer1 = new Timer(5000, escucha);
+        timer2 = new Timer(7000, escucha);
 
 
+        userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuario");
+        JOptionPane.showMessageDialog(null, "Hola " +userName+ ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
+        fileManager.escribirTexto(userName);
     }
 
     /**
@@ -200,20 +210,21 @@ public class GUI extends JFrame {
     private class Escucha implements ActionListener, MouseListener {
         private int counter, counter2;
 
-
         public Escucha() {
             counter = 0;
             counter2 = 0;
         }
 
-        Diccionario words = new Diccionario();
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == timer1) {
+            Random aleatorio = new Random();
+            if (e.getSource() == timer1 && userName != null) {
                 counter++;
                 if (counter <= 10) {
-                    palabras.setText("xd");
+                    nivell = nivel.getNivel();
+                    words.generarPalabrasNivel(nivel.getNivel());
+                    palabras.setText(words.getPalabrasMemorizar().get(aleatorio.nextInt(10)));
                 } else {
                     timer1.stop();
                     botonNo.setEnabled(true);
@@ -221,35 +232,41 @@ public class GUI extends JFrame {
                     botonJugar.setEnabled(false);
                     timer1.restart();
                     counter2++;
-                    if (counter2 <= 20) {
-                        palabras.setText("a");//words.get_Frase_in_Nivel(1));
+                    if (counter2<= 20) {
+                        palabras.setText(words.getPalabrasNivel().get(aleatorio.nextInt(20)));
                     } else {
                         timer1.stop();
                         counter2 = 0;
                         botonJugar.setEnabled(true);
                     }
                 }
-            } else {
+            } else if (userName.isEmpty()) {
+                botonJugar.setEnabled(true);
+                JOptionPane.showMessageDialog(null, "Necesitas un nombre de usuario para continuar");
+                userName = JOptionPane.showInputDialog("Ingresa tu usuario");
+                JOptionPane.showMessageDialog(null, "Hola "+userName+", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
+                fileManager.escribirTexto(userName);
+            }else{
                 timer1.start();
                 counter = 0;
                 botonJugar.removeActionListener(escucha);
             }
-
         }
-
 
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == botonAyuda && e.getClickCount() == 1) {
                 JOptionPane.showMessageDialog(null, MENSAJE_INICIO);
             }
-            if (e.getSource() == botonSalida && e.getClickCount() == 1 && words.pa) {
+            if (e.getSource() == botonSalida && e.getClickCount() == 1) {
                 System.exit(0);
             }
-            if (e.getSource() == botonNo && e.getClickCount() == 1 ) {
+
+            if (e.getSource() == botonNo && e.getClickCount() == 1) {
 
             }
             if (e.getSource() == botonSi && e.getClickCount() == 1) {
+
 
             }
 

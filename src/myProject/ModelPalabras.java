@@ -12,23 +12,25 @@ import javax.swing.*;
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
  */
 
-public class Diccionario {
+public class ModelPalabras {
     private ArrayList<String> diccionario = new ArrayList<>();
     private ArrayList<String> palabrasMemorizar = new ArrayList<>();
     private ArrayList<String> palabrasNivel = new ArrayList<>();
     private Timer timer3, timer2;
+    private int aciertos;
     private boolean validar;
+    private boolean validar2;
 
-    private Diccionario palabras;
+    private ModelPalabras palabras;
     private int nivel = 1;
 
-    public Diccionario() {
+    public ModelPalabras() {
         FileManager fileManager = new FileManager();
         diccionario = fileManager.lecturaFile();
 
     }
 
-    public void generarPalabrasNivel(int nivel){
+    public void generarPalabrasNivel(int nivel) {
         todas_las_palabras(nivel);
         palabras_a_memorizar(nivel);
 
@@ -45,7 +47,7 @@ public class Diccionario {
     private void palabras_a_memorizar(int nivel) {
         Random aleatorio = new Random();
         if (nivel == 1) {
-            for (int i = 0; i < 10; i++){
+            for (int i = 0; i < 10; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
 
@@ -137,7 +139,6 @@ public class Diccionario {
             for (int i = 0; i < 80; i++) {
                 palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
 
-
             }
 
         } else if (nivel == 7) {
@@ -166,10 +167,10 @@ public class Diccionario {
     }
 
 
-    public ArrayList<Boolean> validarPalabra(int nivel){
+    public ArrayList<Boolean> validarPalabra(int nivel) {
         ArrayList<Boolean> validar = new ArrayList<Boolean>();
         boolean validar2;
-        if(nivel==1){
+        if (nivel == 1) {
             for (int i = 0; i < 20; i++) {
                 validar2 = false;
                 for (int a = 0; a < 10; a++) {
@@ -182,7 +183,7 @@ public class Diccionario {
             }
             return validar;
         }
-        if(nivel==2){
+        if (nivel == 2) {
             for (int i = 0; i < 40; i++) {
                 validar2 = false;
                 for (int a = 0; a < 20; a++) {
@@ -195,7 +196,7 @@ public class Diccionario {
             }
 
         }
-        if(nivel==3){
+        if (nivel == 3) {
             for (int i = 0; i < 50; i++) {
                 validar2 = false;
                 for (int a = 0; a < 25; a++) {
@@ -208,7 +209,7 @@ public class Diccionario {
             }
 
         }
-        if(nivel==4){
+        if (nivel == 4) {
             for (int i = 0; i < 60; i++) {
                 validar2 = false;
                 for (int a = 0; a < 30; a++) {
@@ -221,7 +222,7 @@ public class Diccionario {
             }
 
         }
-        if(nivel==5){
+        if (nivel == 5) {
             for (int i = 0; i < 70; i++) {
                 validar2 = false;
                 for (int a = 0; a < 35; a++) {
@@ -234,7 +235,7 @@ public class Diccionario {
             }
 
         }
-        if(nivel==6){
+        if (nivel == 6) {
             for (int i = 0; i < 80; i++) {
                 validar2 = false;
                 for (int a = 0; a < 40; a++) {
@@ -247,7 +248,7 @@ public class Diccionario {
             }
 
         }
-        if(nivel==7){
+        if (nivel == 7) {
             for (int i = 0; i < 100; i++) {
                 validar2 = false;
                 for (int a = 0; a < 50; a++) {
@@ -260,7 +261,7 @@ public class Diccionario {
             }
 
         }
-        if(nivel==8){
+        if (nivel == 8) {
             for (int i = 0; i < 120; i++) {
                 validar2 = false;
                 for (int a = 0; a < 60; a++) {
@@ -273,7 +274,7 @@ public class Diccionario {
             }
 
         }
-        if(nivel==9){
+        if (nivel == 9) {
             for (int i = 0; i < 140; i++) {
                 validar2 = false;
                 for (int a = 0; a < 70; a++) {
@@ -286,7 +287,7 @@ public class Diccionario {
             }
 
         }
-        if(nivel==10){
+        if (nivel == 10) {
             for (int i = 0; i < 200; i++) {
                 validar2 = false;
                 for (int a = 0; a < 100; a++) {
@@ -299,10 +300,16 @@ public class Diccionario {
             }
 
 
-        }return validar;
+        }
+        return validar;
     }
 
-
+    public int puntaje() {
+        if (validar2 == true) {
+            aciertos++;
+        }
+        return aciertos;
+    }
 
 
 }

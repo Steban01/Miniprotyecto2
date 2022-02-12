@@ -6,38 +6,21 @@ package myProject;
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
  */
 public class ModelUsuario {
-    private int nivel;
     private int aciertos;
-    private Diccionario palabras;
+    private ModelPalabras palabras;
     private GUI interfaz;
 
     /**
      * Class Constructor
      */
-    public ModelUsuario(){
-        nivel = 1;
+    public ModelUsuario() {
         aciertos = 0;
     }
-
-   /* public int validarPalbra(){
-
-
+    public void dataUsuario(int nivel,String userName){
 
 
     }
 
-
-
-
-
-    public int aumentarNivel(){
-        nivel = nivel + 1;
-        return nivel;
-    }
-
-    public int calcularAciertos(){
-
-    }*/
 
 }
 

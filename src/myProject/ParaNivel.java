@@ -13,9 +13,6 @@ public class ParaNivel {
     private int aciertos;
     private int porcentajeAciertos;
 
-
-
-
     /**
      * Constructor of GUI class
      */
@@ -77,6 +74,5 @@ public class ParaNivel {
             }
         }
     }
-
 
 }

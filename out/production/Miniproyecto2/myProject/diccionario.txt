@@ -31,14 +31,15 @@ Mudar
 Pélvico
 Anuncio
 Inútil
-De buen gusto
+Gusto
 Colisionador
 Pensable
 Informar
 Paralelo
 Rodar
 Estudiante
-InsensibleZoom
+Insensible
+Zoom
 Llamar
 Eclosionar
 Soplete
@@ -60,144 +61,145 @@ Vivo
 Bulto
 Bomba
 Respaldo
-Fuego del infierno
+Fuego
 Contratar
 Fijo
 Treed
 Bolsa
 Ahogado
- Hogar
- Condenado
- Sofisticado
- Arriba
- Elefantes
- Hallazgo
- Galleta
- Salida
- Cantidad
- Temporal
- Clasificar
- Análisis
- Orador
- Estante,
- Insensible
- Comportamiento
- Inspección
- Crema
- Ópera
- Invadir
- Aparato
- Huésped
- Modo
- Armonía
- Decadente
- Rayuela
- Carne
- Fijo
- Bailando
- Eunuco
- Deprimido
- Hablar mal
- Silencio
- Arrastrar
- Corroer
- Alimentar
- Condenado
- Coincidencia
- Triángulo
- Futuro
- Prisión
- Didáctico
- Bash
- Habitación
- Retrasar
- Lucrativo
- Contaminar
- Nutritivo
- Atar
- Cardenal
- Sentido
- Lobos
- Tema
- Torcido
- Antílope
- Carroña
- Curva
- Psicología
- Novio
- Visión
- Patria
- Práctico
- Bailando
- Conflicto
- Rasposo
- Deformación
- Año
- Fruta
- Amplio
- Distribución
- Casi
- Profundo
- Brillante
- Resbaladizo
- Sabroso
- Ingresos
- Absurdos
- Estudiante
- Fonético
- Entretener
- Letras
- Falto
- Pictórico
- Biología
- Tierra
- Profuso
- Contrastar
- Numeroso
- Industrial
- Destreza
- Groaner
- RabiaMezcla
- Asesino
- Desuso
- Errado
- Río
- Proyección
- Agua
- Sediento
- Actualidad
- Poderoso
- Agilidad
- Cantidad
- Falto
- Desconcertado
- Grandioso
- Ilimitado
- Cera
- Superficial
- Conectar
- Cambiante
- Nacimiento
- Arco
- Organizar
- Desconexión
- Tormentoso
- Agradecer
- Bendecir
- Rezar
- Diamante
- Tener
- Honesto
- Azufre
- Apestoso
- Genialidad
- Boca
- Implicar
- Inseguro
- Rico
- Azúcar
- Matar
- Esternocelidomastoideo
+Hogar
+Condenado
+Sofisticado
+Arriba
+Elefantes
+Hallazgo
+Galleta
+Salida
+Cantidad
+Temporal
+Clasificar
+Análisis
+Orador
+Estante
+Insensible
+Comportamiento
+Inspección
+Crema
+Ópera
+Invadir
+Aparato
+Huésped
+Modo
+Armonía
+Decadente
+Rayuela
+Carne
+Fijo
+Bailando
+Eunuco
+Deprimido
+Hablar
+Silencio
+Arrastrar
+Corroer
+Alimentar
+Condenado
+Coincidencia
+Triángulo
+Futuro
+Prisión
+Didáctico
+Bash
+Habitación
+Retrasar
+Lucrativo
+Contaminar
+Nutritivo
+Atar
+Cardenal
+Sentido
+Lobos
+Tema
+Torcido
+Antílope
+Carroña
+Curva
+Psicología
+Novio
+Visión
+Patria
+Práctico
+Bailando
+Conflicto
+Rasposo
+Deformación
+Año
+Fruta
+Amplio
+Distribución
+Casi
+Profundo
+Brillante
+Resbaladizo
+Sabroso
+Ingresos
+Absurdos
+Estudiante
+Fonético
+Entretener
+Letras
+Falto
+Pictórico
+Biología
+Tierra
+Profuso
+Contrastar
+Numeroso
+Industrial
+Destreza
+Groaner
+Rabia
+Mezcla
+Asesino
+Desuso
+Errado
+Río
+Proyección
+Agua
+Sediento
+Actualidad
+Poderoso
+Agilidad
+Cantidad
+Falto
+Desconcertado
+Grandioso
+Ilimitado
+Cera
+Superficial
+Conectar
+Cambiante
+Nacimiento
+Arco
+Organizar
+Desconexión
+Tormentoso
+Agradecer
+Bendecir
+Rezar
+Diamante
+Tener
+Honesto
+Azufre
+Apestos
+Genialidad
+Boca
+Implicar
+Inseguro
+Rico
+Azúcar
+Matar
+Esternocelidomastoideo
 
 
 

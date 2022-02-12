@@ -176,9 +176,8 @@ public class GUI extends JFrame {
         palabras.add(botonPalabras);
         botonPalabras.addActionListener(escucha);
 
-        timer1 = new Timer(1500, escucha);
-
-        timer2 = new Timer(1500, escucha);
+        timer1 = new Timer(1000, escucha);
+        timer2 = new Timer(2000, escucha);
 
 
     }
@@ -235,34 +234,7 @@ public class GUI extends JFrame {
                 counter = 0;
                 botonJugar.removeActionListener(escucha);
             }
-            /*if(counter==11){
-                timer1.restart();
-                counter = 0;
-                counter++;
-                if(counter<21){
-                    palabras.setText(diccionario.get_Frase_in_Nivel(1));
-                }
-                else{
-                    timer1.stop();
-                }
-                timer1.stop();
-            }
-             */
-            /*if (e.getSource() == timer2) {
-                timer2.start();
-                counter++;
-                if (counter <21) {
-                    palabras.setText(diccionario.get_Frase_in_Nivel(1));
-                }else {
-                    timer2.stop();
 
-                }
-            }else{
-                timer2.start();
-                counter = 0;
-                botonJugar.setEnabled(false);
-                botonJugar.removeActionListener(escucha2);
-            }*/
         }
 
 
@@ -271,13 +243,13 @@ public class GUI extends JFrame {
             if (e.getSource() == botonAyuda && e.getClickCount() == 1) {
                 JOptionPane.showMessageDialog(null, MENSAJE_INICIO);
             }
-            if (e.getSource() == botonSalida && e.getClickCount() == 1) {
+            if (e.getSource() == botonSalida && e.getClickCount() == 1 && words.pa) {
                 System.exit(0);
             }
-            if (e.getSource() == botonNo && e.getClickCount() == 1 && words.validarPalabra() == false) {
+            if (e.getSource() == botonNo && e.getClickCount() == 1 ) {
 
             }
-            if (e.getSource() == botonSi && e.getClickCount() == 1 && words.validarPalabra() == true) {
+            if (e.getSource() == botonSi && e.getClickCount() == 1) {
 
             }
 

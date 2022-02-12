@@ -3,6 +3,8 @@ package myProject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.swing.*;
+
 
 /**
  * @version v.1.0.0 date:02/02/2022
@@ -14,7 +16,7 @@ public class Diccionario {
     private ArrayList<String> diccionario = new ArrayList<>();
     private ArrayList<String> palabrasMemorizar = new ArrayList<>();
     private ArrayList<String> palabrasNivel = new ArrayList<>();
-    private String palabra;
+    private Timer timer3, timer2;
     private boolean validar;
 
     private Diccionario palabras;
@@ -23,184 +25,285 @@ public class Diccionario {
     public Diccionario() {
         FileManager fileManager = new FileManager();
         diccionario = fileManager.lecturaFile();
-        palabra = " ";
 
     }
 
+    public void generarPalabrasNivel(int nivel){
+        todas_las_palabras(nivel);
+        palabras_a_memorizar(nivel);
 
-    public ArrayList<String> palabras_a_memorizar(int nivel) {
+    }
+
+    public ArrayList<String> getPalabrasMemorizar() {
+        return palabrasMemorizar;
+    }
+
+    public ArrayList<String> getPalabrasNivel() {
+        return palabrasNivel;
+    }
+
+    private void palabras_a_memorizar(int nivel) {
         Random aleatorio = new Random();
         if (nivel == 1) {
-            for (int i = 0; i < 10; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(10)));
+            for (int i = 0; i < 10; i++){
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
+
         } else if (nivel == 2) {
             for (int i = 0; i < 20; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(20)));
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
         } else if (nivel == 3) {
             for (int i = 0; i < 25; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(25)));
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
         } else if (nivel == 4) {
             for (int i = 0; i < 30; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(30)));
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
 
             }
         } else if (nivel == 5) {
             for (int i = 0; i < 35; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(36)));
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
 
             }
 
         } else if (nivel == 6) {
             for (int i = 0; i < 40; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(40)));
-
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
 
         } else if (nivel == 7) {
             for (int i = 0; i < 50; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(50)));
-
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
 
         } else if (nivel == 8) {
             for (int i = 0; i < 60; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(60)));
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
 
             }
 
         } else if (nivel == 9) {
             for (int i = 0; i < 70; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(70)));
-
-
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
 
         } else if (nivel == 10) {
             for (int i = 0; i < 100; i++) {
-                palabrasMemorizar.add(diccionario.get(aleatorio.nextInt(100)));
-
-
+                palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
         }
-        return palabrasMemorizar;
     }
 
 
-
-    public ArrayList<String> todas_las_palabras(int nivel) {
+    private void todas_las_palabras(int nivel) {
         Random aleatorio = new Random();
         if (nivel == 1) {
             for (int i = 0; i < 20; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(20)));
-
-
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
             }
+
         } else if (nivel == 2) {
             for (int i = 0; i < 40; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(40)));
-
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
             }
 
         } else if (nivel == 3) {
             for (int i = 0; i < 50; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(50)));
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
 
             }
 
         } else if (nivel == 4) {
             for (int i = 0; i < 60; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(60)));
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
 
             }
 
         } else if (nivel == 5) {
             for (int i = 0; i < 70; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(70)));
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
 
             }
 
         } else if (nivel == 6) {
             for (int i = 0; i < 80; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(80)));
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
 
 
             }
 
         } else if (nivel == 7) {
             for (int i = 0; i < 100; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(100)));
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
 
             }
 
         } else if (nivel == 8) {
             for (int i = 0; i < 120; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(120)));
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
 
             }
 
         } else if (nivel == 9) {
             for (int i = 0; i < 140; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(140)));
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
 
             }
 
         } else if (nivel == 10) {
             for (int i = 0; i < 200; i++) {
-                palabrasNivel.add(diccionario.get(aleatorio.nextInt(200)));
+                palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
             }
         }
-        return palabrasNivel;
     }
 
-    public String recorrerLista(){
-        for (int i = 0; i < 20; i++) {
-            palabra = palabras_a_memorizar(1).get(i);
-        }
-        return palabra;
-    }
 
-    public boolean validarPalabra(){
-        for (int i = 0; i <= todas_las_palabras(1).size(); i++) {
-            if (todas_las_palabras(1).get(i).contains(recorrerLista())) {
-                return validar = true;
-            } else {
-                return validar = false;
+    public ArrayList<Boolean> validarPalabra(int nivel){
+        ArrayList<Boolean> validar = new ArrayList<Boolean>();
+        boolean validar2;
+        if(nivel==1){
+            for (int i = 0; i < 20; i++) {
+                validar2 = false;
+                for (int a = 0; a < 10; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
             }
+            return validar;
         }
-        return validar;
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        int counter;
-        counter = 0;
-        String h = "Presunto, Cuatro, Asustar, Cuatro, Prevenir, Rifle, Presunto, Prevenir, Scam, Prevenir";
-        String palabra;
-        Boolean validar;
-        Diccionario frase = new Diccionario();
-        System.out.println("Palabras a memorizar: " + frase.palabras_a_memorizar(1));
-        System.out.println("Todas las palabras: " + frase.todas_las_palabras(1));
-        System.out.println("palabra " + frase.recorrerLista());
-
-
-        for (int i = 0; i < 20; i++) {
-            if (frase.todas_las_palabras(1).get(i).contains(frase.recorrerLista())) {
-                System.out.println("true");
-            } else {
-                System.out.println("false");
+        if(nivel==2){
+            for (int i = 0; i < 40; i++) {
+                validar2 = false;
+                for (int a = 0; a < 20; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
             }
+
         }
+        if(nivel==3){
+            for (int i = 0; i < 50; i++) {
+                validar2 = false;
+                for (int a = 0; a < 25; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
+            }
+
+        }
+        if(nivel==4){
+            for (int i = 0; i < 60; i++) {
+                validar2 = false;
+                for (int a = 0; a < 30; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
+            }
+
+        }
+        if(nivel==5){
+            for (int i = 0; i < 70; i++) {
+                validar2 = false;
+                for (int a = 0; a < 35; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
+            }
+
+        }
+        if(nivel==6){
+            for (int i = 0; i < 80; i++) {
+                validar2 = false;
+                for (int a = 0; a < 40; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
+            }
+
+        }
+        if(nivel==7){
+            for (int i = 0; i < 100; i++) {
+                validar2 = false;
+                for (int a = 0; a < 50; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
+            }
+
+        }
+        if(nivel==8){
+            for (int i = 0; i < 120; i++) {
+                validar2 = false;
+                for (int a = 0; a < 60; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
+            }
+
+        }
+        if(nivel==9){
+            for (int i = 0; i < 140; i++) {
+                validar2 = false;
+                for (int a = 0; a < 70; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
+            }
+
+        }
+        if(nivel==10){
+            for (int i = 0; i < 200; i++) {
+                validar2 = false;
+                for (int a = 0; a < 100; a++) {
+                    if (palabrasNivel.get(i).equals(palabrasMemorizar.get(a))) {
+                        validar2 = true;
+                        break;
+                    }
+                }
+                validar.add(i, validar2);
+            }
 
 
+        }return validar;
     }
+
+
+
 
 }
 

@@ -9,14 +9,10 @@ import java.util.Random;
  */
 
 public class ParaNivel {
-    private String palabra;
     private int nivel;
     private int aciertos;
     private int porcentajeAciertos;
-    private boolean validar;
-    private ArrayList<String> lol;
-    private Diccionario diccionario;
-    private FileManager unaPalabra;
+
 
 
 
@@ -24,8 +20,6 @@ public class ParaNivel {
      * Constructor of GUI class
      */
     public ParaNivel(){
-        palabra= "";
-        validar = false;
         nivel = 1;
         aciertos = 0;
     }
@@ -84,16 +78,5 @@ public class ParaNivel {
         }
     }
 
-    public boolean validarPalabra() {
-        for(int i = 0; i<=diccionario.todas_las_palabras(1).size();i++){
-            if(diccionario.todas_las_palabras(1).get(i).contains(diccionario.recorrerLista())){
-                validar = true;
-            }
-            else{
-                validar = false;
-            }
-        }
-        return validar;
-    }
 
 }

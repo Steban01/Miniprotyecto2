@@ -1,5 +1,6 @@
 package myProject;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -8,27 +9,36 @@ import java.util.ArrayList;
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
  */
 public class ModelUsuario {
-    private int aciertos;
-    private ModelPalabras palabras;
-    private GUI interfaz;
-    ParaNivel nivell = new ParaNivel();
-
-    public int getPuntaje() {
-        return puntaje;
-    }
-
-    private int puntaje;
-
+    private String userName;
+    private FileManager fileManager;
+    private ParaNivel nivel;
+    private boolean Usuarioisthere;
 
     /**
      * Class Constructor
      */
     public ModelUsuario() {
-        aciertos = 0;
+        nivel = new ParaNivel();
+        fileManager = new FileManager();
+
+    }
+    public String userName(){
+         userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuarioh");
+         return userName;
+    }
+    public String getUserName(){
+        return userName;
     }
 
-
-
+    public Boolean busquedaUsername(){
+        if(fileManager.nombresJugadoresLectura().contains(userName)){
+             Usuarioisthere=true;
+        }
+        else{
+             Usuarioisthere=false;
+        }
+        return Usuarioisthere;
+    }
 
 
 }

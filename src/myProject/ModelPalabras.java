@@ -310,8 +310,8 @@ public class ModelPalabras {
 
     }*/
 
-    public int Verificacion(int nivel){
-        int puntaje=0;
+    public int Verificacion(int nivel) {
+        int puntaje = 0;
         ArrayList<Boolean> prueba = new ArrayList<>();
         prueba.add(true);
         prueba.add(true);
@@ -354,22 +354,17 @@ public class ModelPalabras {
         prueba2.add(false);
         prueba2.add(true);
         prueba2.add(true);
-        if(nivel==1) {
-            for(int i=0;i<20;i++) {
-               if(prueba.get(i)==prueba2.get(i)){
-                         puntaje++;
-               }
+        if (nivel == 1) {
+            for (int i = 0; i < 20; i++) {
+                if (prueba.get(i) == prueba2.get(i)) {
+                    puntaje++;
+                }
             }
         }
 
         return puntaje;
 
     }
-
-
-
-
-
 
 
 }

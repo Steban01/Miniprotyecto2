@@ -1,6 +1,7 @@
 package myProject;
 
 import java.io.*;
+import java.sql.Array;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,6 @@ public class FileManager {
 
     public ArrayList<String> lecturaFile() {
         ArrayList<String> frases = new ArrayList<String>();
-
         try {
             fileReader = new FileReader(PATH_WORDS);
             input = new BufferedReader(fileReader);
@@ -42,11 +42,12 @@ public class FileManager {
         return frases;
     }
 
-    public void escribirTexto(String linea) {
-        try {
+    public void escribirTexto(String linea, int nivel) {
+        try{
             fileWriter = new FileWriter(PATH_USERS, true);
             output = new BufferedWriter(fileWriter);
             output.write(linea);
+            output.write(nivel);
             output.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,4 +59,30 @@ public class FileManager {
             }
         }
     }
+
+    public ArrayList<String> nombresJugadoresLectura(){
+        ArrayList<String> users = new ArrayList<String>();
+        try {
+            fileReader = new FileReader(PATH_USERS);
+            input = new BufferedReader(fileReader);
+            String line = input.readLine();
+            while (line != null) {
+                users.add(line);
+                line = input.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                input.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return users;
+    }
+
+
 }

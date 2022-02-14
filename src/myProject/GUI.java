@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -31,12 +32,23 @@ public class GUI extends JFrame {
     private ModelUsuario modelUsuario;
     private ParaNivel nivel;
     private int elNivel;
+    private int nivelNEW;
+    private int aciertosNEW;
     private FileManager fileManager;
     private String userName;
     private ModelPalabras words;
     private JTextArea palabras;
     private JPanel panelUserName, panelNivel, separador;
     private JButton botonSalida, botonAyuda, botonSi, botonNo, botonJugar, botonPalabras;
+    private int puntaje;
+    private boolean validarU;
+    ArrayList<Boolean> validarUsuario = new ArrayList<>();
+
+
+
+
+
+
 
 
     /**
@@ -190,13 +202,16 @@ public class GUI extends JFrame {
         botonPalabras.addMouseListener(escucha);
 
         timer1 = new Timer(1000, escucha);
-        timer2 = new Timer(2000, escucha);
+        timer2 = new Timer(4000, escucha);
         elNivel = nivel.getNivel();
+        puntaje = 0;
 
 
         userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuario");
         JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
         fileManager.escribirTexto(userName);
+
+
     }
 
     /**
@@ -215,24 +230,33 @@ public class GUI extends JFrame {
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
     private class Escucha implements ActionListener, MouseListener {
-        private int counter, counter2;
+        private int counter, counter2, counter3, counter4, counter5, counter6;
 
         public Escucha() {
             counter = 0;
             counter2 = 0;
+            counter3 = -1;
+            counter4 = -1;
+            counter5 = -1;
+            counter6 = -1;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //words.generarPalabrasNivel(nivel.getNivel());
             System.out.println(words.getPalabrasMemorizar());
+            System.out.println(words.getPalabrasNivel());
+            System.out.println(words.validarPalabra(elNivel));
             Random aleatorio = new Random();
-            if (e.getSource() == timer1 && userName!="") {
+            String palabra;
+            palabra = " ";
+            if (e.getSource() == timer1 && userName != "") {
                 counter++;
-                if (counter < words.getPalabrasMemorizar().size()) {
-                    //.out.println(words.getPalabrasMemorizar());
-                    palabras.setText(words.getPalabrasMemorizar().get(aleatorio.nextInt(10)));
-                } else {
+                if (counter <= words.getPalabrasMemorizar().size()){//words.getPalabrasMemorizar().size()
+                    counter3++;
+                    if(counter3 < words.getPalabrasMemorizar().size()){
+                       palabras.setText(words.getPalabrasMemorizar().get(counter3));
+                    }
+                } else{
                     timer1.stop();
                     botonNo.setEnabled(true);
                     botonSi.setEnabled(true);
@@ -243,14 +267,24 @@ public class GUI extends JFrame {
 
             if (e.getSource() == timer2) {
                 counter2++;
-                if (counter2 < words.getPalabrasNivel().size()) {
-                    System.out.println(words.getPalabrasNivel());
-                    palabras.setText(words.getPalabrasNivel().get(aleatorio.nextInt(20)));
+                if (counter2 <= words.getPalabrasNivel().size() ){//words.getPalabrasNivel().size()
+                    counter4++;
+                    if(counter4 < words.getPalabrasNivel().size()){
+                        palabras.setText(words.getPalabrasNivel().get(counter4));
+                    }
                 } else {
                     timer2.stop();
-                    JOptionPane.showMessageDialog(null, "Tu puntaje es:\n" + words.puntaje());
+                    JOptionPane.showMessageDialog(null, "Tu número de aciertos es:\n"+nivel.getAciertos()
+                                                 + "\n el procentaje minimo para pasar es de:\n" + nivel.calcularPorcentajeAciertos(aciertosNEW)+ "%");
+                    botonJugar.addMouseListener(escucha);
+                    botonJugar.setEnabled(true);
+                    nivel.aumentarNivel();
+                    nivelNEW = nivel.getNivel();
+                    aciertosNEW = nivel.getAciertos();
+                    System.out.println("Nivel"+nivelNEW);
+                    System.out.println("aciertos"+aciertosNEW);
+                    nivel.finalizarPartida(nivelNEW,aciertosNEW);
                     counter2 = 0;
-                    botonJugar.setEnabled(false);
                 }
             }
 
@@ -264,11 +298,11 @@ public class GUI extends JFrame {
             if (e.getSource() == botonSalida && e.getClickCount() == 1) {
                 System.exit(0);
             }
-            if(userName.isEmpty()){
+            if (userName.isEmpty()) {
                 botonJugar.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Necesitas un nombre de usuario para continuar");
                 userName = JOptionPane.showInputDialog("Ingresa tu usuario");
-                while(userName.isEmpty()){
+                while (userName.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Necesitas un nombre de usuario para continuar");
                     userName = JOptionPane.showInputDialog("Ingresa tu usuario");
                     botonJugar.setEnabled(true);
@@ -277,7 +311,7 @@ public class GUI extends JFrame {
                 fileManager.escribirTexto(userName);
 
             }
-            if (e.getSource() == botonJugar && e.getClickCount() == 1 && userName!=null) {
+            if (e.getSource() == botonJugar && e.getClickCount() == 1 && userName != null) {
                 timer1.start();
                 words.generarPalabrasNivel(elNivel);
                 botonJugar.removeActionListener(escucha);
@@ -285,39 +319,24 @@ public class GUI extends JFrame {
             }
 
             if (e.getSource() == botonPalabras && e.getClickCount() == 1) {
-                //Random aleatorio = new Random();
                 timer2.start();
                 botonPalabras.removeMouseListener(escucha);
                 botonPalabras.setEnabled(false);
-                //words.generarPalabrasNivel(nivel.getNivel());
-                //palabras.setText(words.getPalabrasNivel().get(aleatorio.nextInt(20)));
 
             }
-            if (e.getSource() == botonSi && e.getClickCount() == 1) {
-                for (int i = 0; i < words.validarPalabra(elNivel).size(); i++){
-                    System.out.println(words.validarPalabra(elNivel));
-                    if (words.validarPalabra(elNivel).get(i) == true) {
-                        words.puntaje();
-                        break;
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "NO es esa :(");
-                    }
-                }
-
-                if (e.getSource() == botonNo && e.getClickCount() == 1) {
-                    for (int i = 0; i < words.validarPalabra(elNivel).size(); i++) {
-                        if(words.validarPalabra(elNivel).get(i)==false){
-                        words.puntaje();
-                        break;
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "NO es esa :(");
-                        }
-                    }
-                }
+            counter5 ++;
+            if(counter5 < 20){
+            if (e.getSource() == botonSi && e.getClickCount() == 1 && words.validarPalabra(elNivel).get(counter)==true){
+                nivel.aumentarAciertos();
+             }
+            }
+            counter6++;
+            if(counter6 < 20){
+            if (e.getSource() == botonNo && e.getClickCount() == 1 && words.validarPalabra(elNivel).get(counter6)==false){
+                nivel.aumentarAciertos();
             }
         }
+    }
 
         @Override
         public void mousePressed(MouseEvent e) {
@@ -338,17 +357,10 @@ public class GUI extends JFrame {
         public void mouseExited(MouseEvent e) {
 
         }
+
     }
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-

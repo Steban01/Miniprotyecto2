@@ -1,5 +1,6 @@
 package Testclases;
 
+import myProject.GUI;
 import myProject.ModelPalabras;
 import myProject.ParaNivel;
 
@@ -9,17 +10,17 @@ import java.util.Random;
 public class testGetaFrase {
 
     public static void main(String[] args) throws InterruptedException {
-        ModelPalabras frase = new ModelPalabras();
-        ParaNivel nivel = new ParaNivel();
-        //System.out.println("La validacion es: "+nivel.validarPalabra());
-        //System.out.println("La validacion es: "+frase.recorrerLista());
-        //System.out.println("La validacion es: "+ frase.todas_las_palabras(1));
-        // System.out.println("La validacion es: "+frase.validarPalabra());
-        frase.generarPalabrasNivel(nivel.getNivel());
-        System.out.println(frase.getPalabrasMemorizar());
-        System.out.println(frase.getPalabrasNivel());
-        System.out.println("Validacion: " + frase.validarPalabra(nivel.getNivel()));
-
+       ModelPalabras  model= new ModelPalabras();
+       ParaNivel nivel = new ParaNivel();
+       String palabra;
+       palabra = " ";
+       model.generarPalabrasNivel(nivel.getNivel());
+       System.out.println(model.getPalabrasMemorizar());
+       System.out.println(model.getPalabrasNivel());
+       System.out.println(model.validarPalabra(nivel.getNivel()));
+        for(int i= 0; i <= model.getPalabrasMemorizar().size();i++){
+            System.out.println(model.getPalabrasMemorizar().get(i));
+        }
 
     }
 

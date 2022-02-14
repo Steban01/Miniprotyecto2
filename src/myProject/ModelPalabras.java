@@ -20,6 +20,8 @@ public class ModelPalabras {
     private int aciertos;
     private boolean validar;
     private boolean validar2;
+    private GUI interfaz;
+    private ParaNivel nivell;
 
     private ModelPalabras palabras;
     private int nivel = 1;
@@ -181,7 +183,7 @@ public class ModelPalabras {
                 }
                 validar.add(i, validar2);
             }
-            return validar;
+
         }
         if (nivel == 2) {
             for (int i = 0; i < 40; i++) {
@@ -304,14 +306,70 @@ public class ModelPalabras {
         return validar;
     }
 
-    public int puntaje() {
-        if (validar2 == true) {
-            aciertos++;
+    /*public boolean recorreValidacion(){
+
+    }*/
+
+    public int Verificacion(int nivel){
+        int puntaje=0;
+        ArrayList<Boolean> prueba = new ArrayList<>();
+        prueba.add(true);
+        prueba.add(true);
+        prueba.add(false);
+        prueba.add(true);
+        prueba.add(true);
+        prueba.add(false);
+        prueba.add(true);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(false);
+        prueba.add(true);
+        prueba.add(true);
+        ArrayList<Boolean> prueba2 = new ArrayList<>();
+        prueba2.add(true);
+        prueba2.add(true);
+        prueba2.add(false);
+        prueba2.add(true);
+        prueba2.add(true);
+        prueba2.add(false);
+        prueba2.add(true);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(false);
+        prueba2.add(true);
+        prueba2.add(true);
+        if(nivel==1) {
+            for(int i=0;i<20;i++) {
+               if(prueba.get(i)==prueba2.get(i)){
+                         puntaje++;
+               }
+            }
         }
-        return aciertos;
+
+        return puntaje;
+
     }
-    
-    
+
+
+
+
+
 
 
 }

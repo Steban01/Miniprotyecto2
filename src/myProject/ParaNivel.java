@@ -15,6 +15,8 @@ public class ParaNivel {
     private int aciertos;
     private int errores;
     private int porcentajeAciertos;
+    private ModelPalabras words;
+
 
     public int getElNivel() {
         return elNivel;

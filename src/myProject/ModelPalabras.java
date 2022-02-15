@@ -15,23 +15,25 @@ import javax.swing.*;
 public class ModelPalabras {
     private ArrayList<String> diccionario = new ArrayList<>();
     private ArrayList<String> palabrasMemorizar = new ArrayList<>();
+    private ArrayList<String> palabrasMemorizar_reset = new ArrayList<>();
     private ArrayList<String> palabrasNivel = new ArrayList<>();
+    private ArrayList<String> palabrasNivel_reset = new ArrayList<>();
     private Timer timer3, timer2;
     private int aciertos;
     private boolean validar;
     private boolean validar2;
     private GUI interfaz;
     private ParaNivel nivell;
-
     private ModelPalabras palabras;
 
     public ModelPalabras() {
         FileManager fileManager = new FileManager();
         diccionario = fileManager.lecturaFile();
-
     }
 
-    public void generarPalabrasNivel(int nivel) {
+    public void generarPalabrasNivel(int nivel){
+        palabrasMemorizar.clear();
+        palabrasNivel.clear();
         todas_las_palabras(nivel);
         palabras_a_memorizar(nivel);
     }
@@ -51,7 +53,8 @@ public class ModelPalabras {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
         }else if (nivel == 2) {
-            for (int i = 0; i < 20; i++) {
+            palabrasMemorizar.clear();
+            for (int i = 0; i < 20; i++){
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
         }else if (nivel == 3) {
@@ -68,8 +71,6 @@ public class ModelPalabras {
         }else if (nivel == 5) {
             for (int i = 0; i < 35; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
-
-
             }
 
         }else if (nivel == 6) {
@@ -87,8 +88,6 @@ public class ModelPalabras {
         }else if (nivel == 8) {
             for (int i = 0; i < 60; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
-
-
             }
 
         }else if (nivel == 9) {

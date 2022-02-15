@@ -28,17 +28,18 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private Timer timer1, timer2;
-    private Escucha escucha;
+    private Escucha escucha1,escucha2;
     private ParaNivel nivel;
     private int elNivel;
     private int nivelNEW;
     private int aciertosNEW;
+    private int errores;
     private FileManager fileManager;
     private ModelUsuario modelUsuario;
     private String userName;
     private ModelPalabras words;
     private JTextArea palabras;
-    private JPanel  panelNivel, separador;
+    private JPanel panelNivel, separador;
     private JLabel labelUserName;
     private JButton botonSalida, botonAyuda, botonSi, botonNo, botonJugar, botonPalabras;
     private boolean validarU;
@@ -74,7 +75,8 @@ public class GUI extends JFrame {
         this.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         //Create Listener Object and Control Object
-        escucha = new Escucha();
+        escucha2= new Escucha();
+        escucha1 = new Escucha();
         words = new ModelPalabras();
         nivel = new ParaNivel();
         fileManager = new FileManager();
@@ -116,7 +118,7 @@ public class GUI extends JFrame {
         panelUserName.setForeground(Color.WHITE);*/
 
         nivelNEW = 1;
-        System.out.println("NIVEL INICIAL: " + nivelNEW);
+        System.out.println("NIVEL INICIAL: " + nivel.getElNivel());
         panelNivel = new JPanel();
         panelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: " + nivel.getNivel()));
         panelNivel.setPreferredSize(new Dimension(100, 35));
@@ -145,7 +147,7 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_END;
         this.add(botonSalida, constraints);
-        botonSalida.addMouseListener(escucha);
+        botonSalida.addMouseListener(escucha1);
         //panelUserName.setBackground(Color.darkGray);
         //panelUserName.setForeground(Color.WHITE);
 
@@ -157,7 +159,7 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_START;
         this.add(botonAyuda, constraints);
-        botonAyuda.addMouseListener(escucha);
+        botonAyuda.addMouseListener(escucha1);
 
         botonSi = new JButton("Si");
         botonSi.setPreferredSize(new Dimension(100, 45));
@@ -168,7 +170,7 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonSi, constraints);
         botonSi.setEnabled(false);
-        botonSi.addMouseListener(escucha);
+        botonSi.addMouseListener(escucha1);
 
         botonNo = new JButton("No");
         botonNo.setPreferredSize(new Dimension(100, 45));
@@ -179,7 +181,7 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.LINE_END;
         this.add(botonNo, constraints);
         botonNo.setEnabled(false);
-        botonNo.addMouseListener(escucha);
+        botonNo.addMouseListener(escucha1);
 
         botonJugar = new JButton("Inicio");
         botonJugar.setPreferredSize(new Dimension(100, 45));
@@ -189,7 +191,7 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonJugar, constraints);
-        botonJugar.addMouseListener(escucha);
+        botonJugar.addMouseListener(escucha1);
 
         botonPalabras = new JButton("Jugar");
         botonPalabras.setPreferredSize(new Dimension(100, 45));
@@ -199,28 +201,25 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(botonPalabras, constraints);
-        botonNo.setEnabled(false);
-        botonPalabras.addMouseListener(escucha);
+        //botonPalabras.setEnabled(false);
+        botonPalabras.addMouseListener(escucha2);
 
-        timer1 = new Timer(1000, escucha);
-        timer2 = new Timer(1000, escucha);
+        timer1 = new Timer(1000, escucha1);
+        timer2 = new Timer(1000, escucha2);
 
         userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuario");
         JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
-        fileManager.escribirTexto(userName,1);
+        //fileManager.escribirTexto(userName);
         labelUserName.setBorder(BorderFactory.createTitledBorder("UserName: "));
         labelUserName.setText(userName);
-
-
        if (fileManager.nombresJugadoresLectura().contains(userName)){
            JOptionPane.showMessageDialog(null, "Hola " +userName + " bienvenido de nuevo!!");
-           fileManager.nombresJugadoresLectura().add("hola");
-        }else {
-            fileManager.escribirTexto(userName, nivel.getNivel());
+           //fileManager.nombresJugadoresLectura().add("hola");
+        }
+       else{
+            fileManager.escribirTexto(userName);
             JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
         }
-
-
     }
 
     /**
@@ -252,68 +251,85 @@ public class GUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println(words.getPalabrasMemorizar());
-            System.out.println(words.getPalabrasNivel());
-            System.out.println(words.validarPalabra(nivelNEW));
             Random aleatorio = new Random();
             String palabra;
             palabra = " ";
-            if (e.getSource() == timer1 && userName != "") {
+            if (e.getSource() == timer1 ){
                 counter++;
-                if (counter <= words.getPalabrasMemorizar().size()) {
+                if (counter < words.getPalabrasMemorizar(nivel.getElNivel()).size()){
                     counter3++;
-                    if (counter3 < words.getPalabrasMemorizar().size()) {
-                        palabras.setText(words.getPalabrasMemorizar().get(counter3));
-                    }
-                } else {
-                    timer1.stop();
-                    botonNo.setEnabled(true);
-                    botonSi.setEnabled(true);
-                    botonPalabras.setEnabled(true);
-                    botonPalabras.addMouseListener(escucha);
-
-
+                    palabras.setText(words.getPalabrasMemorizar(nivel.getElNivel()).get(counter3));
                 }
+            }else{
+                timer1.stop();
+               // words.getPalabrasMemorizar(nivel.getNivel()).clear();
+                botonNo.setEnabled(true);
+                botonSi.setEnabled(true);
+                botonPalabras.setEnabled(true);
+                botonPalabras.addMouseListener(escucha2);
+                counter=0;
+                counter3=0;
             }
+
 
             if (e.getSource() == timer2) {
                 counter2++;
-                if (counter2 <= words.getPalabrasNivel().size()) {//words.getPalabrasNivel().size()
+                if (counter2 < words.getPalabrasNivel(nivel.getElNivel()).size()) {
                     counter4++;
-                    if (counter4 < words.getPalabrasNivel().size()) {
-                        palabras.setText(words.getPalabrasNivel().get(counter4));
+                    if (counter4 < words.getPalabrasNivel(nivel.getElNivel()).size()) {
+                        palabras.setText(words.getPalabrasNivel(nivel.getElNivel()).get(counter4));
                     }
 
-                } else {
+                }else{
                     timer2.stop();
+
                     JOptionPane.showMessageDialog(null, "Tu número de aciertos es:\n" + puntaje()
-                            + "\n el procentaje minimo para pasar es de:\n" + nivel.calcularPorcentajeAciertos(nivel.getAciertos()) + "%");
-                    System.out.println(nivel.calcularPorcentajeAciertos(nivel.getAciertos()));
-                    botonJugar.addMouseListener(escucha);
+                            + "\nTu porcentaje de aciertos es:\n" + nivel.calcularPorcentajeAciertos(nivel.getAciertos()) + "%\n");
+                    nivel.errores(nivel.getNivel(),nivel.getAciertos());
+                    JOptionPane.showMessageDialog(null, "Tu numero de errores fueron: "+ nivel.getErrores());
+                    nivel.aumentaNivel(nivel.getAciertos(),nivel.getNivel());
+                    panelNivel.removeAll();
+                    panelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: " + nivel.getNivel()));
+
+                    System.out.println("---------------------------------------------------------------------");
+                    System.out.println("SE AUMENTO EL NIVEL(?"+nivel.aumentaNivel(nivel.getAciertos(),nivel.getNivel()));
+                    System.out.println("NIVEL EN ESTE MOMENTO: " + nivel.getElNivel());
+                    System.out.println("Aciertos: " + nivel.getAciertos());
+                    System.out.println("---------------------------------------------------------------------");
+                    words.getPalabrasMemorizar(nivel.getNivel()).clear();
+                    words.getPalabrasNivel(nivel.getNivel()).clear();
+
+                    //nivelNEW = nivel.getNivel();
+                    botonJugar.addMouseListener(escucha1);
                     botonJugar.setEnabled(true);
                     botonNo.setEnabled(false);
                     botonSi.setEnabled(false);
-                    botonNo.removeMouseListener(escucha);
-                    botonSi.removeMouseListener(escucha);
-                    nivel.aumentarNivel();
-                    nivelNEW = nivel.getNivel();
+                    botonNo.removeMouseListener(escucha1);
+                    botonSi.removeMouseListener(escucha1);
+                    counter2=0;
+                    counter4=0;
+                    /*words.generarPalabrasNivel(nivel.getNivel());
+                    System.out.println("---------------------------------------------------------------------");
+                    System.out.println("ACA SE USA EL GET NIVEL");
+                    System.out.println(words.getPalabrasMemorizar(nivel.getNivel()));
+                    System.out.println(words.getPalabrasNivel(nivel.getNivel()));
+                    System.out.println("---------------------------------------------------------------------");
 
-                    panelNivel.removeAll();
-                    panelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: " + nivel.getNivel()));
-                    System.out.println("NIVEL INICIAL" + nivel.getNivel());
-                    System.out.println("aciertos" + nivel.getAciertos());
-                    nivel.finalizarPartida(nivel.getNivel(), puntaje());
-
+                    System.out.println("---------------------------------------------------------------------");
+                    System.out.println("ACA SE USA EL GET EL NIVEL");
+                    System.out.println(words.getPalabrasMemorizar(nivel.getElNivel()));
+                    System.out.println(words.getPalabrasNivel(nivel.getElNivel()));
+                    System.out.println("---------------------------------------------------------------------");*/
                 }
             }
         }
 
         @Override
-        public void mouseClicked(MouseEvent e) {
+        public void mouseClicked(MouseEvent e){
             if (e.getSource() == botonAyuda && e.getClickCount() == 1) {
                 JOptionPane.showMessageDialog(null, MENSAJE_INICIO);
             }
-            if (userName.isEmpty()){
+            if (userName.isEmpty()) {
                 botonJugar.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Necesitas un nombre de usuario para continuar");
                 userName = JOptionPane.showInputDialog("Ingresa tu usuario");
@@ -324,49 +340,70 @@ public class GUI extends JFrame {
                 }
                 //Verifica si ese nombre de usuario ya estaba registrado
                 if (fileManager.nombresJugadoresLectura().contains(userName)) {
-                    for (int i = 0; i < fileManager.nombresJugadoresLectura().size(); i++) {
+                    for (int i = 0; i < fileManager.nombresJugadoresLectura().size(); i++){
                         if (fileManager.nombresJugadoresLectura().get(i) == userName) {
                             JOptionPane.showMessageDialog(null, "Hola " + userName + "bienvenido de nuevo!!");
                         }
                     }
                 } else {
-                    fileManager.escribirTexto(userName, nivel.getNivel());
+                    fileManager.escribirTexto(userName);
                     JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
                 }
             }
 
-                if (e.getSource() == botonSalida && e.getClickCount() == 1) {
-                    System.exit(0);
-                    fileManager.escribirTexto(userName, 1);
+            if (e.getSource() == botonSalida) {
+                System.exit(0);
+                fileManager.escribirTexto(userName);
 
-                }
-                if (e.getSource() == botonJugar && e.getClickCount() == 1 && userName != null){
-                    timer1.start();
-                    words.generarPalabrasNivel(nivelNEW);
-                    botonJugar.removeActionListener(escucha);
-                    botonJugar.setEnabled(false);
-                    counter = 0;
-                }
-                if (e.getSource() == botonPalabras && e.getClickCount() == 1) {
-                    timer2.start();
-                    botonPalabras.removeMouseListener(escucha);
-                    botonPalabras.setEnabled(false);
-                    counter2 = 0;
+            }
+            if (e.getSource() == botonJugar && e.getClickCount() == 1 && userName != null ) {
+                timer1.start();
+                words.generarPalabrasNivel(nivel.getElNivel());
+                botonJugar.removeActionListener(escucha1);
+                botonJugar.setEnabled(false);
+                counter = 0;
+                counter3=0;
+               // System.out.println("---------------------------------------------------------------------");
+                System.out.println("QUE MONDA DE NIVEL ENTRA ACA: " + nivel.getElNivel());
+               System.out.println(words.getPalabrasMemorizar(nivel.getElNivel()));
+                System.out.println(words.getPalabrasNivel(nivel.getElNivel()));
+               // System.out.println(words.validarPalabra(nivel.getElNivel()));
+               // System.out.println("---------------------------------------------------------------------");
 
-                }
-                if (e.getSource() == botonSi && e.getClickCount() == 1) {
-                    validarU = true;
-                    validarUsuario.add(validarU);
+            }
+            /*if (e.getSource() == botonJugar && e.getClickCount() ==2 && userName != null) {
+                timer1.start();
+                words.generarPalabrasNivel(nivel.getElNivel());
+                System.out.println("---------------------------------------------------------------------");
+                System.out.println("QUE MONDA DE NIVEL ENTRA ACA doble click: " + nivel.getElNivel());
+                System.out.println(words.getPalabrasMemorizar(nivel.getElNivel()));
+                System.out.println(words.getPalabrasNivel(nivel.getElNivel()));
+                System.out.println(words.validarPalabra(nivel.getElNivel()));
+                System.out.println("---------------------------------------------------------------------");
+                botonJugar.removeActionListener(escucha);
+                botonJugar.setEnabled(false);
+                counter = 0;
+            }*/
+            if (e.getSource() == botonPalabras) {
+                timer2.start();
+                botonPalabras.removeMouseListener(escucha2);
+                botonPalabras.setEnabled(false);
+                counter2 = 0;
+
+            }
+            if (e.getSource() == botonSi) {
+                validarU = true;
+                validarUsuario.add(validarU);
+            }
 
 
-                }
-                if (e.getSource() == botonNo && e.getClickCount() == 1) {
-                    validarU = false;
-                    validarUsuario.add(validarU);
+            if (e.getSource() == botonNo) {
+                validarU = false;
+                validarUsuario.add(validarU);
+            }
 
-                }
+        }
 
-    }
         @Override
         public void mousePressed(MouseEvent e) {
 
@@ -389,41 +426,15 @@ public class GUI extends JFrame {
 
     }
 
-    public int puntaje() {
+    public int puntaje(){
         for (int i = 0; i < getValidarUsuario().size(); i++) {
-            for (int a = 0; a < words.getPalabrasMemorizar().size(); a++) {
-                if (getValidarUsuario().get(i) == words.validarPalabra(nivelNEW).get(a)) {
+            for (int a = 0; a < words.getPalabrasMemorizar(nivel.getNivel()).size(); a++) {
+                if (getValidarUsuario().get(i) == words.validarPalabra(nivel.getNivel()).get(a)) {
                     nivel.aumentarAciertos();
                     break;
                 }
             }
-
         }
         return nivel.getAciertos();
     }
-
-    public int bienvenidaUsuario(){
-        if(modelUsuario.busquedaUsername()==true){
-            JOptionPane.showMessageDialog(null, "Hola " +userName + " bienvenido de nuevo!!");
-
-            for (int i = 0; i < fileManager.nombresJugadoresLectura().size(); i++){
-                if (fileManager.nombresJugadoresLectura().get(i) == userName) {
-
-                }
-            }
-            fileManager.nombresJugadoresLectura().contains(userName);
-
-
-
-        }
-        else{
-            if(modelUsuario.busquedaUsername()==false){
-                  nivelNEW=1;
-            }
-        }
-        return 1;
-
-
-
-}
 }

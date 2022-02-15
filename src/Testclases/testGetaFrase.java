@@ -8,20 +8,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class testGetaFrase {
-
     public static void main(String[] args) throws InterruptedException {
-       ModelPalabras  model= new ModelPalabras();
-       ParaNivel nivel = new ParaNivel();
-       String palabra;
-       palabra = " ";
-       model.generarPalabrasNivel(nivel.getNivel());
-       System.out.println(model.getPalabrasMemorizar());
-       System.out.println(model.getPalabrasNivel());
-       System.out.println(model.validarPalabra(nivel.getNivel()));
-        for(int i= 0; i <= model.getPalabrasMemorizar().size();i++){
-            System.out.println(model.getPalabrasMemorizar().get(i));
-        }
+        ArrayList<String> nuevaLista= new ArrayList<>();
+        ModelPalabras frase = new ModelPalabras();
+        ParaNivel nivel = new ParaNivel();
+        System.out.println("EL nivel " + nivel.getNivel());
+        frase.generarPalabrasNivel(nivel.getNivel());
+        System.out.println("FRASES EN NIVEL 1"+frase.getPalabrasMemorizar(1));
+        System.out.println("FRASES EN NIVEL 1"+frase.getPalabrasNivel(1));
+        frase.generarPalabrasNivel(nivel.getNivel());
+        System.out.println("FRASES EN NIVEL 2"+frase.getPalabrasMemorizar(2));
+        System.out.println("FRASES EN NIVEL 2"+frase.getPalabrasNivel(2));
+        //nuevaLista = frase.getPalabrasMemorizar(nivel.getNivel()).clear();
 
+        //System.out.println("Validacion: " + frase.validarPalabra(nivel.getNivel()));
     }
-
 }

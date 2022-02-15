@@ -24,7 +24,6 @@ public class ModelPalabras {
     private ParaNivel nivell;
 
     private ModelPalabras palabras;
-    private int nivel = 1;
 
     public ModelPalabras() {
         FileManager fileManager = new FileManager();
@@ -35,71 +34,69 @@ public class ModelPalabras {
     public void generarPalabrasNivel(int nivel) {
         todas_las_palabras(nivel);
         palabras_a_memorizar(nivel);
-
     }
 
-    public ArrayList<String> getPalabrasMemorizar() {
+    public ArrayList<String> getPalabrasMemorizar(int nivel) {
         return palabrasMemorizar;
     }
 
-    public ArrayList<String> getPalabrasNivel() {
+    public ArrayList<String> getPalabrasNivel(int nivel) {
         return palabrasNivel;
     }
 
     private void palabras_a_memorizar(int nivel) {
         Random aleatorio = new Random();
-        if (nivel == 1) {
+        if (nivel == 1){
             for (int i = 0; i < 10; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
-
-        } else if (nivel == 2) {
+        }else if (nivel == 2) {
             for (int i = 0; i < 20; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
-        } else if (nivel == 3) {
+        }else if (nivel == 3) {
             for (int i = 0; i < 25; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
-        } else if (nivel == 4) {
+        }else if (nivel == 4) {
             for (int i = 0; i < 30; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
 
             }
-        } else if (nivel == 5) {
+        }else if (nivel == 5) {
             for (int i = 0; i < 35; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
 
             }
 
-        } else if (nivel == 6) {
+        }else if (nivel == 6) {
             for (int i = 0; i < 40; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
 
-        } else if (nivel == 7) {
+        }else if (nivel == 7) {
             for (int i = 0; i < 50; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
 
-        } else if (nivel == 8) {
+        }else if (nivel == 8) {
             for (int i = 0; i < 60; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
 
             }
 
-        } else if (nivel == 9) {
+        }else if (nivel == 9) {
             for (int i = 0; i < 70; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
 
-        } else if (nivel == 10) {
+        }else if (nivel == 10) {
             for (int i = 0; i < 100; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }

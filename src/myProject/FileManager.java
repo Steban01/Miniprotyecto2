@@ -42,12 +42,12 @@ public class FileManager {
         return frases;
     }
 
-    public void escribirTexto(String linea, int nivel) {
+    public void escribirTexto(String linea){
         try{
             fileWriter = new FileWriter(PATH_USERS, true);
             output = new BufferedWriter(fileWriter);
             output.write(linea);
-            output.write(nivel);
+            //output.write(String.valueOf(nivel));
             output.newLine();
         } catch (IOException e) {
             e.printStackTrace();

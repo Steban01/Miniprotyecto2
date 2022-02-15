@@ -22,23 +22,23 @@ public class ModelUsuario {
         fileManager = new FileManager();
 
     }
-    public String userName(){
-         userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuarioh");
-         return userName;
-    }
-    public String getUserName(){
+
+    public String userName() {
+        userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuarioh");
         return userName;
     }
 
-    public Boolean busquedaUsername(){
-        if(fileManager.nombresJugadoresLectura().contains(userName)){
-             Usuarioisthere=true;
-        }
-        else{
-             Usuarioisthere=false;
-        }
-        return Usuarioisthere;
+    public String getUserName() {
+        return userName;
     }
+
+    /*public String concatenarElNivel(){
+
+    }
+
+    public Boolean busquedaUsername() {
+
+    }*/
 
 
 }

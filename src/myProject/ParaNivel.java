@@ -69,61 +69,105 @@ public class ParaNivel {
     }
 
     public int calcularPorcentajeAciertos(int aciertos) {
-        if (aciertos >= 14 && aciertos < 28) {
+        if (aciertos >= 0 && aciertos <= 20) {
             porcentajeAciertos = (aciertos * 100) / 20; //calcula el porcentaje dependiendo de los aciertos
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
-        else if (aciertos >= 28 && aciertos < 38) {
+        else if (aciertos >= 0 && aciertos <= 40) {
             porcentajeAciertos = (aciertos * 100) / 40;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
 
-        else if (aciertos >= 38 && aciertos < 48) {
+        else if (aciertos >= 0 && aciertos <= 50) {
             porcentajeAciertos = (aciertos * 100) / 50;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
 
-        else if (aciertos >= 48 && aciertos < 56) {
+        else if (aciertos >= 0 && aciertos <= 60) {
             porcentajeAciertos = (aciertos * 100) / 60;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
 
-        else if (aciertos >= 56 && aciertos < 68) {
+        else if (aciertos >= 0 && aciertos <= 70) {
             porcentajeAciertos = (aciertos * 100) / 70;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
 
-        else if (aciertos >= 68 && aciertos < 90) {
+        else if (aciertos >= 0 && aciertos <= 80) {
             porcentajeAciertos = (aciertos * 100) / 80;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
 
-        else if (aciertos >= 90 && aciertos < 108) {
+        else if (aciertos >= 0 && aciertos <= 100) {
             porcentajeAciertos = (aciertos * 100) / 100;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
-        else if (aciertos >= 108 && aciertos < 133) {
+        else if (aciertos >= 0 && aciertos <= 120) {
             porcentajeAciertos = (aciertos * 100) / 120;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
 
-        else  if (aciertos >= 133 && aciertos < 200) {
+        else  if (aciertos >= 0 && aciertos <= 140) {
             porcentajeAciertos = (aciertos * 100) / 140;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
         }
-        else  if (aciertos == 200) {
+        else  if (aciertos>= 0 && aciertos == 200) {
             porcentajeAciertos = (aciertos * 100) / 200;
             JOptionPane.showMessageDialog(null, "Lograste superar la cantidad minima de aciertos para pasar de nivel");
-
         }
         else{
-            JOptionPane.showMessageDialog(null, "Suerte la proxima vez");
+            JOptionPane.showMessageDialog(null, "Suerte la proxima vez, no lograste obtener la cantidad minima de aciertos para superar el nivel.\n"
+                    +"Vuelve a intentarlo con le boton iniciar");
             getNivel();
         }
         return porcentajeAciertos;
     }
     public int aumentaNivel(int aciertos, int nivel){
-        if (nivel == 1 && aciertos >= 14 && aciertos < 28){
+        if (nivel == 1 && aciertos >= 14 && aciertos <= 20){
+            System.out.println();
+            //calcularPorcentajeAciertos(aciertos);
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 2 && aciertos >= 28 && aciertos <= 40){
+            System.out.println();
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 3 && aciertos >= 38 && aciertos <= 50){
+            System.out.println();
+            //calcularPorcentajeAciertos(aciertos);
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 4 && aciertos >= 48 && aciertos <= 60){
+            System.out.println();
+            //calcularPorcentajeAciertos(aciertos);
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 5 && aciertos >= 56 && aciertos <= 70){
+            System.out.println();
+            //calcularPorcentajeAciertos(aciertos);
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 6 && aciertos >= 68 && aciertos <= 80){
+            System.out.println();
+            //calcularPorcentajeAciertos(aciertos);
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 7 && aciertos >= 90 && aciertos <= 100){
+            System.out.println();
+            //calcularPorcentajeAciertos(aciertos);
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 8 && aciertos >= 108 && aciertos <= 120){
+            System.out.println();
+            //calcularPorcentajeAciertos(aciertos);
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 9 && aciertos >= 133 && aciertos <= 140){
+            System.out.println();
+            //calcularPorcentajeAciertos(aciertos);
+            elNivel = nivel + 1;
+        }
+        else if (nivel == 10 && aciertos == 200){
             System.out.println();
             //calcularPorcentajeAciertos(aciertos);
             elNivel = nivel + 1;

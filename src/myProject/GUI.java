@@ -294,14 +294,18 @@ public class GUI extends JFrame {
                     }
                 } else{
                     timer2.stop();
-                    JOptionPane.showMessageDialog(null, "Tu número de aciertos es:\n"+puntaje()
-                            + "\n Tu porcentaje de aciertos:\n" + nivel.calcularPorcentajeAciertos(nivel.getAciertos())+ "%");
+                    JOptionPane.showMessageDialog(null, "Tu número de aciertos es:\n" + puntaje()
+                            + "\nTu porcentaje de aciertos es:\n" + nivel.calcularPorcentajeAciertos(nivel.getAciertos()) + "%\n");
+                    nivel.aumentaNivel(nivel.getAciertos(),nivel.getNivel());
+                    panelNivel.removeAll();
+                    panelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: " + nivel.getElNivel()));
                     botonJugar.setEnabled(true);
                     botonJugar.addMouseListener(escucha);
                     words.getPalabrasMemorizar(1).clear();
                     words.getPalabrasNivel(1).clear();
                     nivelNEW = nivel.getNivel();
                     aciertosNEW = nivel.getAciertos();
+
                     System.out.println("Nivel"+nivelNEW);
                     System.out.println("aciertos"+aciertosNEW);
                     counter3 = 0;
@@ -334,6 +338,7 @@ public class GUI extends JFrame {
             }
             if (e.getSource() == botonJugar && e.getClickCount() == 1 && userName != null) {
                 timer1.start();
+                System.out.println("Nivel " + nivel.getElNivel());
                 words.generarPalabrasNivel(nivel.getElNivel());
                 System.out.println(words.getPalabrasMemorizar(nivel.getElNivel()));
                 System.out.println(words.getPalabrasNivel(nivel.getElNivel()));

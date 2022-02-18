@@ -5,15 +5,14 @@ import java.sql.Array;
 import java.util.ArrayList;
 
 /**
- * Esta clase es usada para el mandejo de archivos txt
  *
  * @version v.1.0.0 date:02/02/2022
  * @autors Laura Jaimes, laura.jaimes@correounivalle.edu.co, 2040430-3743
  * Esteban Hernandez, esteban.cortes@correounivalle.edu.co, 2042817 - 3743
  */
 public class FileManager {
-    public static final String PATH_WORDS = "src/myProject/diccionario.txt";
-    public static final String PATH_USERS = "src/myProject/usuarios.txt";
+    public static final String PATH_WORDS = "src/myProject/files/diccionario.txt";
+    public static final String PATH_USERS = "src/myProject/files/usuarios.txt";
     private FileReader fileReader;
     private BufferedReader input;
     private FileWriter fileWriter;
@@ -50,15 +49,15 @@ public class FileManager {
     }
 
     /**
-     * Escribe en el archivo de texto
+     * Escribe en el archivo de texto el usuario junto con el nivel donde quedo
      *
      * @version v.1.0.0 date 12/02/2022
      */
-    public void escribirTexto(String linea, int nivel) {
-        try{
+    public void escribirTexto_Con_Nivel(String linea, int nivel) {
+        try {
             fileWriter = new FileWriter(PATH_USERS, true);
             output = new BufferedWriter(fileWriter);
-            output.write(linea+" , ");
+            output.write(linea + ".");
             output.write(String.valueOf(nivel));
             output.newLine();
         } catch (IOException e) {
@@ -71,23 +70,6 @@ public class FileManager {
             }
         }
     }
-    /*public void escribirTexto_Con_Nivel(String linea,) {
-        try {
-            fileWriter = new FileWriter(PATH_USERS, true);
-            output = new BufferedWriter(fileWriter);
-            output.write(linea);
-            //output.write(String.valueOf(nivel));
-            output.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
 
     /**
      * Establece un array list con los nombres de los jugadores
@@ -95,7 +77,7 @@ public class FileManager {
      * @return Array list de tipo String con los nombres de los jugadores
      * @version v.1.0.0 date 12/02/2022
      */
-    public ArrayList<String> nombresJugadoresLectura() {
+    public ArrayList<String> lecturaJugadores() {
         ArrayList<String> users = new ArrayList<String>();
         try {
             fileReader = new FileReader(PATH_USERS);
@@ -118,6 +100,5 @@ public class FileManager {
         }
         return users;
     }
-
 
 }

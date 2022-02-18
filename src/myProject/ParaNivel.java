@@ -3,7 +3,6 @@ package myProject;
 import javax.swing.*;
 
 
-
 /**
  * @version v.1.0.0 date:02/02/2022
  * @autors Laura Jaimes, laura.jaimes@correounivalle.edu.co, 2040430 - 3743
@@ -14,7 +13,6 @@ public class ParaNivel {
     private int elNivel;
     private int aciertos;
     private int porcentajeAciertos;
-    private ModelPalabras words;
 
     /**
      * Constructor of GUI class
@@ -22,31 +20,64 @@ public class ParaNivel {
     public ParaNivel() {
         aciertos = 0;
         elNivel = 1;
-        //errores=0;
     }
 
-
+    /**
+     * Obtiene el nivel
+     *
+     * @return un entero de nivel
+     * @version v.1.0.0 date 13/02/2022
+     */
     public int getElNivel() {
         return elNivel;
     }
 
+    /**
+     * Aumenta los acierto a parir del anterior
+     *
+     * @return un entero de aciertos
+     * @version v.1.0.0 date 13/02/2022
+     */
     public int aumentarAciertos() {
         return aciertos++;
     }
 
-    public int getAciertos() {
+    /**
+     * Obtiene el nivel
+     *
+     * @return un entero de aciertos
+     * @version v.1.0.0 date 13/02/2022
+     */
+    public int getAciertos(){
         return aciertos;
     }
 
-    public int reiniciar_aciertos() {
+    /**
+     * Reinicia el valor de los aciertos
+     *
+     * @return un entero de aciertos
+     * @version v.1.0.0 date 16/02/2022
+     */
+    public int reiniciar_aciertos(){
         return aciertos = 0;
     }
 
-    public int reiniciar_porcentaje_de_aciertos() {
+    /**
+     * Reinicia el valor del porcentaje de aciertos
+     *
+     * @return un entero de porcentajes
+     * @version v.1.0.0 date 18/02/2022
+     */
+    public int reiniciar_porcentaje_de_aciertos(){
         return porcentajeAciertos = 0;
     }
 
-
+    /**
+     * Calcula los aciertos y muestra un mensaje de superado dependiendo de la cantidad de aciertos que se tiene
+     *
+     * @return un entero de porcentaje
+     * @version v.1.0.0 date 16/02/2022
+     */
     public int calcularPorcentajeAciertos(int nivel, int aciertos) {
         if (nivel == 1 && aciertos > 0 && aciertos <= 20) {
             porcentajeAciertos = (aciertos * 100) / 20; //calcula el porcentaje dependiendo de los aciertos
@@ -109,6 +140,13 @@ public class ParaNivel {
         return porcentajeAciertos;
     }
 
+
+    /**
+     * Establece el aumento del nivel dependiendo del nivel y de la cantidad de aciertos que tiene
+     *
+     * @return un entero de nivel
+     * @version v.1.0.0 date 15/02/2022
+     */
     public int aumentaNivel(int aciertos, int nivel) {
         if (nivel == 1 && aciertos >= 14 && aciertos <= 20) {
             elNivel = nivel + 1;

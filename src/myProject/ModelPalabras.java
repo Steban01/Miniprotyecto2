@@ -15,16 +15,9 @@ import javax.swing.*;
 public class ModelPalabras {
     private ArrayList<String> diccionario = new ArrayList<>();
     private ArrayList<String> palabrasMemorizar = new ArrayList<>();
-    private ArrayList<String> palabrasMemorizar_reset = new ArrayList<>();
     private ArrayList<String> palabrasNivel = new ArrayList<>();
-    private ArrayList<String> palabrasNivel_reset = new ArrayList<>();
-    private Timer timer3, timer2;
-    private int aciertos;
     private boolean validar;
     private boolean validar2;
-    private GUI interfaz;
-    private ParaNivel nivell;
-    private ModelPalabras palabras;
 
     /**
      * Constructor of GUI class

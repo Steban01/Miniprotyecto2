@@ -20,8 +20,8 @@ public class GUI extends JFrame {
     public static final String MENSAJE_INICIO = "Hola!!, bienvenido a I KNOW THAT WORD. \n" +
             "Al darle el boton Start, comenzara a salir una serie de palabras a memorizar, es decir,\n"
             + "aparece una palabra, dura 5 segundos en pantalla, luego se borra y aparece la siguiente.\n"
-            + "Despues de memorizar las primeras palabras usted debera de darle click al boton play para que inicie la ronda del juego, donde salen\n"
-            + "para que inicie la ronda del juego, donde salen el doble de palabras que salieron al incicio.\n"
+            + "Después de memorizar las primeras palabras usted debera de darle click al boton play para que inicie la ronda de juego, donde sale\n"
+            + "el doble de palabras que salieron al incicio.\n"
             + "Por cada una las palabras usted deberá indicar si la palabra estaba o no contenida en el\n"
             + "listado a memorizar y tendrá un tiempo de 7 segundos para responder, en caso de no hacerlo se tomará\n"
             + "como un error. En la imagen de al lado puedes ver la cantiadad de palabras que salen por nivel y los porcentajes minimos que debes de tener para pasar de nivel\n"
@@ -29,16 +29,15 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private Timer timer1, timer2;
-    private Escucha escucha;
-    private ModelUsuario modelUsuario;
-    private ParaNivel nivel;
-    private int elNivell;
     private int nivelNEW;
-    private int aciertosNEW;
     private FileManager fileManager;
-    private ImageIcon imageBotonIniciar, imageBotonSalir, imageBotonAyuda, imageBotonSi, imageBotonNo, imageBotonJugar, imageVentana, imageReglas;
+    private ImageIcon imageBotonIniciar, imageBotonSalir, imageBotonAyuda, imageBotonSi, imageBotonNo, imageBotonJugar, imageReglas, imageHeader;
     private String userName;
     private ModelPalabras words;
+    private Escucha escucha;
+    private ModelUsuario modelUsuario;
+    private String show;
+    private ParaNivel nivel;
     private JTextArea palabras;
     private JLabel labelUserName, labelNivel;
     private JPanel separador;
@@ -86,6 +85,8 @@ public class GUI extends JFrame {
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
         headerProject.setPreferredSize(new Dimension(340, 24));
+        ImageIcon imageHeader = new ImageIcon(getClass().getResource("/recursos/header.png"));
+        headerProject.setIcon(imageHeader);
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
@@ -98,7 +99,7 @@ public class GUI extends JFrame {
         palabras = new JTextArea();
         palabras.setPreferredSize(new Dimension(300, 100));
         palabras.setEditable(false);
-        palabras.setFont(new Font("Arial", Font.ITALIC, 45));
+        palabras.setFont(new Font("Arial", Font.ITALIC, 40));
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridwidth = 2;
@@ -116,10 +117,10 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.LINE_START;
         this.add(labelUserName, constraints);
         labelUserName.setBackground(new Color(255, 255, 255, 0));
-        ;
         labelUserName.setOpaque(true);
         labelUserName.setForeground(Color.BLACK);
         labelUserName.setFont(new Font("Times new roman", Font.ITALIC, 15));
+        labelUserName.setBorder(BorderFactory.createTitledBorder("UserName:"));
 
         labelNivel = new JLabel();
         labelNivel.setBorder(BorderFactory.createTitledBorder("Nivel:"));
@@ -218,18 +219,18 @@ public class GUI extends JFrame {
         botonJugar.setEnabled(false);
         botonJugar.addMouseListener(escucha);
 
-        timer1 = new Timer(1000, escucha);
-        timer2 = new Timer(1000, escucha);
+        timer1 = new Timer(5000, escucha);
+        timer2 = new Timer(7000, escucha);
 
+        //Aca se verifica si el usuario es nuevo o antiguo
         userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuario");
-        JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
-        labelUserName.setBorder(BorderFactory.createTitledBorder("UserName: "));
         labelUserName.setText(userName);
-        if (fileManager.nombresJugadoresLectura().contains(userName)) {
+        if (fileManager.lecturaJugadores().contains(userName) && userName != "") {
             JOptionPane.showMessageDialog(null, "Hola " + userName + " bienvenido de nuevo!!");
         } else{
-            fileManager.escribirTexto(userName,nivel.getElNivel());
-            JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
+            fileManager.escribirTexto_Con_Nivel(userName,nivel.getElNivel());
+            JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego",
+                    "Game",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/recursos/hola.jpeg")));
         }
 
     }
@@ -292,12 +293,10 @@ public class GUI extends JFrame {
                     timer2.stop();
                     puntaje();
                     nivel.aumentaNivel(nivel.getAciertos(), nivel.getElNivel());
-                    System.out.println("PUNTAJE CON NUMERO DE ACIERTOS ACTUAL1: " + nivel.getAciertos());
                     JOptionPane.showMessageDialog(null, "Tu número de aciertos es:\n" + nivel.getAciertos() +
                             "\nTu porcentaje de aciertos es:\n" + nivel.calcularPorcentajeAciertos(nivel.getElNivel(), nivel.getAciertos()) + "%\n");
-                    System.out.println("PUNTAJE CON NUMERO DE ACIERTOS ACTUAL2 : " + nivel.getAciertos());
                     labelNivel.removeAll();
-                    labelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: " + nivel.getElNivel()));
+                    labelNivel.setText(String.valueOf(nivel.getElNivel()));
                     botonIniciar.addMouseListener(escucha);
                     botonIniciar.setEnabled(true);
                     botonNo.setEnabled(false);
@@ -310,9 +309,9 @@ public class GUI extends JFrame {
                     nivelNEW = nivel.getElNivel();
                     nivel.reiniciar_aciertos();
                     nivel.reiniciar_porcentaje_de_aciertos();
-                    System.out.println("PUNTAJE DESPUES DE REINICIAR3: " + nivel.getAciertos());
                     counter3 = -1;
                     counter4 = -1;
+
                 }
             }
 
@@ -322,32 +321,36 @@ public class GUI extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == botonAyuda && e.getClickCount() == 1) {
                 ImageIcon imageReglas = new ImageIcon(getClass().getResource("/recursos/reglas.jpeg"));
-                JOptionPane.showMessageDialog(null, MENSAJE_INICIO,"Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE,imageReglas);
+                JOptionPane.showMessageDialog(null, MENSAJE_INICIO, "Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE, imageReglas);
             }
             if (e.getSource() == botonSalida && e.getClickCount() == 1) {
                 System.exit(0);
+                fileManager.escribirTexto_Con_Nivel(userName,nivel.getElNivel());
             }
-
-            if (userName.isEmpty()) {
-                botonIniciar.setEnabled(true);
-                JOptionPane.showMessageDialog(null, "Necesitas un nombre de usuario para continuar");
-                userName = JOptionPane.showInputDialog("Ingresa tu usuario");
+            //Verificacion para que el juego no inicie si el jugador no ha ingresado su nombre de usuario
+            if (userName.isEmpty()){
                 while (userName.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Necesitas un nombre de usuario para continuar");
+                    JOptionPane.showMessageDialog(null, "Necesitas un nombre de usuario para continuar","ERROR",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/recursos/errorU.jpeg")));
                     userName = JOptionPane.showInputDialog("Ingresa tu usuario");
+                    labelUserName.removeAll();
+                    labelUserName.setBackground(Color.WHITE);
+                    labelUserName.setText(userName);
                     botonIniciar.setEnabled(true);
                 }
-                JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
-                fileManager.escribirTexto(userName,nivel.getElNivel());
+                ImageIcon imageMessage = new ImageIcon(getClass().getResource("/recursos/hola.jpeg"));
+                JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego","Game",JOptionPane.INFORMATION_MESSAGE,imageMessage);
+                fileManager.escribirTexto_Con_Nivel(userName, nivel.getElNivel());
             }
             if (e.getSource() == botonIniciar && e.getClickCount() == 1 && userName != null) {
                 timer1.start();
                 words.generarPalabrasNivel(nivel.getElNivel());
-                System.out.println(words.getPalabrasMemorizar(nivel.getElNivel()));
+                //Para la visualicacion de las listas
+                /*System.out.println(words.getPalabrasMemorizar(nivel.getElNivel()));
                 System.out.println(words.getPalabrasNivel(nivel.getElNivel()));
-                System.out.println(words.validarPalabra(nivel.getElNivel()));
+                System.out.println(words.validarPalabra(nivel.getElNivel()));*/
                 botonIniciar.removeActionListener(escucha);
                 botonIniciar.setEnabled(false);
+
             }
 
             if (e.getSource() == botonJugar && e.getClickCount() == 1) {
@@ -397,7 +400,7 @@ public class GUI extends JFrame {
      * @return el valor de tipo entero de los aciertos
      * @version v.1.0.0 date 13/02/2022
      */
-    public int puntaje() {
+    public int puntaje(){
         for (int i = 0; i < getValidarUsuario().size(); i++) {
             for (int a = 0; a < words.validarPalabra(nivel.getElNivel()).size(); a++) {
                 if (getValidarUsuario().get(i) == words.validarPalabra(nivel.getElNivel()).get(a)) {
@@ -407,6 +410,5 @@ public class GUI extends JFrame {
             }
         }
         return nivel.getAciertos();
-
     }
 }

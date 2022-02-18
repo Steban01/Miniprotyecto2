@@ -138,12 +138,12 @@ public class ModelPalabras {
     private void todas_las_palabras(int nivel) {
         Random aleatorio = new Random();
         if (nivel == 1) {
-            for (int i = 0; i < 20; i++){
+            for (int i = 0; i < 20; i++) {
                 palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
             }
 
         } else if (nivel == 2) {
-            for (int i = 0; i < 40; i++){
+            for (int i = 0; i < 40; i++) {
                 palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
             }
 

@@ -24,13 +24,16 @@ public class ModelUsuario {
     }
 
     public String userName() {
-        userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuarioh");
+        userName = JOptionPane.showInputDialog("Para iniciar el juego debes de ingresar tu usuario");
         return userName;
     }
 
     public String getUserName() {
         return userName;
     }
+
+
+
 
     /*public String concatenarElNivel(){
 

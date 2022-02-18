@@ -24,8 +24,8 @@ public class GUI extends JFrame {
             + "para que inicie la ronda del juego, donde salen el doble de palabras que salieron al incicio.\n"
             + "Por cada una las palabras usted deberá indicar si la palabra estaba o no contenida en el\n"
             + "listado a memorizar y tendrá un tiempo de 7 segundos para responder, en caso de no hacerlo se tomará\n"
-            + "como un error.\n"
-            +"¡¡Buena suerte :)!!";
+            + "como un error. En la imagen de al lado puedes ver la cantiadad de palabras que salen por nivel y los porcentajes minimos que debes de tener para pasar de nivel\n"
+            + "¡¡Buena suerte :)!!";
 
     private Header headerProject;
     private Timer timer1, timer2;
@@ -36,7 +36,7 @@ public class GUI extends JFrame {
     private int nivelNEW;
     private int aciertosNEW;
     private FileManager fileManager;
-    private ImageIcon imageBotonIniciar, imageBotonSalir, imageBotonAyuda, imageBotonSi, imageBotonNo, imageBotonJugar, imageVentana, imageHeader;
+    private ImageIcon imageBotonIniciar, imageBotonSalir, imageBotonAyuda, imageBotonSi, imageBotonNo, imageBotonJugar, imageVentana, imageReglas;
     private String userName;
     private ModelPalabras words;
     private JTextArea palabras;
@@ -63,7 +63,7 @@ public class GUI extends JFrame {
         this.setResizable(true);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setBackground(new Color(255,255,255,0));
+        this.setBackground(new Color(255, 255, 255, 0));
         this.setBackground(Color.WHITE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -82,10 +82,9 @@ public class GUI extends JFrame {
         modelUsuario = new ModelUsuario();
         nivel = new ParaNivel();
         fileManager = new FileManager();
+
         //Set up JComponents
         headerProject = new Header("", Color.BLACK);
-        imageHeader = new ImageIcon(getClass().getResource("/recursos/header.png"));
-        headerProject.setIcon(imageHeader);
         headerProject.setPreferredSize(new Dimension(340, 24));
         constraints.gridx = 1;
         constraints.gridy = 0;
@@ -94,7 +93,8 @@ public class GUI extends JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         this.add(headerProject, constraints);
         headerProject.setBackground(Color.WHITE);
-        //headerProject.setForeground(Color.WHITE);
+
+
         palabras = new JTextArea();
         palabras.setPreferredSize(new Dimension(300, 100));
         palabras.setEditable(false);
@@ -115,7 +115,8 @@ public class GUI extends JFrame {
         constraints.fill = GridBagConstraints.NONE;
         constraints.anchor = GridBagConstraints.LINE_START;
         this.add(labelUserName, constraints);
-        labelUserName.setBackground(new Color(255,255,255,0));;
+        labelUserName.setBackground(new Color(255, 255, 255, 0));
+        ;
         labelUserName.setOpaque(true);
         labelUserName.setForeground(Color.BLACK);
         labelUserName.setFont(new Font("Times new roman", Font.ITALIC, 15));
@@ -226,11 +227,10 @@ public class GUI extends JFrame {
         labelUserName.setText(userName);
         if (fileManager.nombresJugadoresLectura().contains(userName)) {
             JOptionPane.showMessageDialog(null, "Hola " + userName + " bienvenido de nuevo!!");
-        } else {
-            fileManager.escribirTexto(userName);
+        } else{
+            fileManager.escribirTexto(userName,nivel.getElNivel());
             JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
         }
-
 
     }
 
@@ -291,11 +291,11 @@ public class GUI extends JFrame {
                 } else {
                     timer2.stop();
                     puntaje();
-                    nivel.aumentaNivel(nivel.getAciertos(),nivel.getElNivel());
-                    System.out.println("PUNTAJE CON NUMERO DE ACIERTOS ACTUAL1: "+ nivel.getAciertos());
-                    JOptionPane.showMessageDialog(null, "Tu número de aciertos es:\n" + nivel.getAciertos()+
-                             "\nTu porcentaje de aciertos es:\n" + nivel.calcularPorcentajeAciertos(nivel.getElNivel(),nivel.getAciertos()) + "%\n");
-                    System.out.println("PUNTAJE CON NUMERO DE ACIERTOS ACTUAL2 : "+nivel.getAciertos());
+                    nivel.aumentaNivel(nivel.getAciertos(), nivel.getElNivel());
+                    System.out.println("PUNTAJE CON NUMERO DE ACIERTOS ACTUAL1: " + nivel.getAciertos());
+                    JOptionPane.showMessageDialog(null, "Tu número de aciertos es:\n" + nivel.getAciertos() +
+                            "\nTu porcentaje de aciertos es:\n" + nivel.calcularPorcentajeAciertos(nivel.getElNivel(), nivel.getAciertos()) + "%\n");
+                    System.out.println("PUNTAJE CON NUMERO DE ACIERTOS ACTUAL2 : " + nivel.getAciertos());
                     labelNivel.removeAll();
                     labelNivel.setBorder(BorderFactory.createTitledBorder("Nivel: " + nivel.getElNivel()));
                     botonIniciar.addMouseListener(escucha);
@@ -310,7 +310,7 @@ public class GUI extends JFrame {
                     nivelNEW = nivel.getElNivel();
                     nivel.reiniciar_aciertos();
                     nivel.reiniciar_porcentaje_de_aciertos();
-                    System.out.println("PUNTAJE DESPUES DE REINICIAR3: "+nivel.getAciertos());
+                    System.out.println("PUNTAJE DESPUES DE REINICIAR3: " + nivel.getAciertos());
                     counter3 = -1;
                     counter4 = -1;
                 }
@@ -321,11 +321,13 @@ public class GUI extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == botonAyuda && e.getClickCount() == 1) {
-                JOptionPane.showMessageDialog(null, MENSAJE_INICIO);
+                ImageIcon imageReglas = new ImageIcon(getClass().getResource("/recursos/reglas.jpeg"));
+                JOptionPane.showMessageDialog(null, MENSAJE_INICIO,"Bienvenido Jugador", JOptionPane.QUESTION_MESSAGE,imageReglas);
             }
             if (e.getSource() == botonSalida && e.getClickCount() == 1) {
                 System.exit(0);
             }
+
             if (userName.isEmpty()) {
                 botonIniciar.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Necesitas un nombre de usuario para continuar");
@@ -336,7 +338,7 @@ public class GUI extends JFrame {
                     botonIniciar.setEnabled(true);
                 }
                 JOptionPane.showMessageDialog(null, "Hola " + userName + ", bienvenido al juego I know that word, dale al boton ayuda para conocer mas sobre el juego");
-                fileManager.escribirTexto(userName);
+                fileManager.escribirTexto(userName,nivel.getElNivel());
             }
             if (e.getSource() == botonIniciar && e.getClickCount() == 1 && userName != null) {
                 timer1.start();
@@ -395,7 +397,7 @@ public class GUI extends JFrame {
      * @return el valor de tipo entero de los aciertos
      * @version v.1.0.0 date 13/02/2022
      */
-    public int puntaje(){
+    public int puntaje() {
         for (int i = 0; i < getValidarUsuario().size(); i++) {
             for (int a = 0; a < words.validarPalabra(nivel.getElNivel()).size(); a++) {
                 if (getValidarUsuario().get(i) == words.validarPalabra(nivel.getElNivel()).get(a)) {

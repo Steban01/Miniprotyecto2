@@ -20,8 +20,10 @@ public class FileManager {
     private BufferedWriter output;
 
     /**
+     * Establece un array list con las palabras del juego
+     *
      * @return
-     * @version v.1.0.0 date 00/02/2022
+     * @version v.1.0.0 date 02/02/2022
      */
     public ArrayList<String> lecturaFile() {
         ArrayList<String> frases = new ArrayList<String>();
@@ -48,10 +50,28 @@ public class FileManager {
     }
 
     /**
-     * @return
-     * @version v.1.0.0 date 00/02/2022
+     * Escribe en el archivo de texto
+     *
+     * @version v.1.0.0 date 12/02/2022
      */
-    public void escribirTexto(String linea) {
+    public void escribirTexto(String linea, int nivel) {
+        try{
+            fileWriter = new FileWriter(PATH_USERS, true);
+            output = new BufferedWriter(fileWriter);
+            output.write(linea+" , ");
+            output.write(String.valueOf(nivel));
+            output.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                output.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    /*public void escribirTexto_Con_Nivel(String linea,) {
         try {
             fileWriter = new FileWriter(PATH_USERS, true);
             output = new BufferedWriter(fileWriter);
@@ -67,11 +87,13 @@ public class FileManager {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     /**
-     * @return
-     * @version v.1.0.0 date 00/02/2022
+     * Establece un array list con los nombres de los jugadores
+     *
+     * @return Array list de tipo String con los nombres de los jugadores
+     * @version v.1.0.0 date 12/02/2022
      */
     public ArrayList<String> nombresJugadoresLectura() {
         ArrayList<String> users = new ArrayList<String>();

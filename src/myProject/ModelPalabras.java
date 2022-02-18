@@ -26,92 +26,124 @@ public class ModelPalabras {
     private ParaNivel nivell;
     private ModelPalabras palabras;
 
+    /**
+     * Constructor of GUI class
+     */
     public ModelPalabras() {
         FileManager fileManager = new FileManager();
         diccionario = fileManager.lecturaFile();
     }
 
-    public void generarPalabrasNivel(int nivel){
+
+    /**
+     * Llama a las funciones que generan las palabras de cada nivel, ya sean la de memorizar o todas las palabras
+     *
+     * @return
+     * @version v.1.0.0 date 11/02/2022
+     */
+
+    public void generarPalabrasNivel(int nivel) {
         palabrasMemorizar.clear();
         palabrasNivel.clear();
         todas_las_palabras(nivel);
         palabras_a_memorizar(nivel);
     }
 
+    /**
+     * Genera el array de las palabras a memorizar
+     *
+     * @return el array de palabras a memorizar
+     * @version v.1.0.0 date 11/02/2022
+     */
     public ArrayList<String> getPalabrasMemorizar(int nivel) {
         return palabrasMemorizar;
     }
 
+    /**
+     * Obtiene el array de las palabras completas (las a memorizar junto con las otras)
+     *
+     * @return el array de las palabras totales del nivel
+     * @version v.1.0.0 date 11/02/2022
+     */
     public ArrayList<String> getPalabrasNivel(int nivel) {
         return palabrasNivel;
     }
 
+    /**
+     * Genera los arrays de las palabras a memorizar dependiendo de su nivel
+     *
+     * @version v.1.0.0 date 11/02/2022
+     */
     private void palabras_a_memorizar(int nivel) {
         Random aleatorio = new Random();
-        if (nivel == 1){
+        if (nivel == 1) {
             for (int i = 0; i < 10; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
-        }else if (nivel == 2) {
+        } else if (nivel == 2) {
             palabrasMemorizar.clear();
-            for (int i = 0; i < 20; i++){
+            for (int i = 0; i < 20; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
-        }else if (nivel == 3) {
+        } else if (nivel == 3) {
             for (int i = 0; i < 25; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
-        }else if (nivel == 4) {
+        } else if (nivel == 4) {
             for (int i = 0; i < 30; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
 
             }
-        }else if (nivel == 5) {
+        } else if (nivel == 5) {
             for (int i = 0; i < 35; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
 
-        }else if (nivel == 6) {
+        } else if (nivel == 6) {
             for (int i = 0; i < 40; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
 
-        }else if (nivel == 7) {
+        } else if (nivel == 7) {
             for (int i = 0; i < 50; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
 
             }
 
-        }else if (nivel == 8) {
+        } else if (nivel == 8) {
             for (int i = 0; i < 60; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
 
-        }else if (nivel == 9) {
+        } else if (nivel == 9) {
             for (int i = 0; i < 70; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
 
-        }else if (nivel == 10) {
+        } else if (nivel == 10) {
             for (int i = 0; i < 100; i++) {
                 palabrasMemorizar.add(palabrasNivel.get(aleatorio.nextInt(palabrasNivel.size())));
             }
         }
     }
 
-
+    /**
+     * Genera los arrays de todas las palabras dependiendo de su nivel
+     *
+     * @version v.1.0.0 date 11/02/2022
+     */
     private void todas_las_palabras(int nivel) {
         Random aleatorio = new Random();
         if (nivel == 1) {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 20; i++){
                 palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
             }
 
         } else if (nivel == 2) {
-            for (int i = 0; i < 40; i++) {
+            for (int i = 0; i < 40; i++){
                 palabrasNivel.add(diccionario.get(aleatorio.nextInt(diccionario.size())));
             }
 
@@ -164,7 +196,12 @@ public class ModelPalabras {
         }
     }
 
-
+    /**
+     * Valida por cada nivel si la palabra que esta en el array de palabras a memorizar hace parte del array de palabras del nivel
+     *
+     * @return array de booleanos con las palabras verificadas
+     * @version v.1.0.0 date 12/02/2022
+     */
     public ArrayList<Boolean> validarPalabra(int nivel) {
         ArrayList<Boolean> validar = new ArrayList<Boolean>();
         boolean validar2;
@@ -300,66 +337,6 @@ public class ModelPalabras {
 
         }
         return validar;
-    }
-
-    /*public boolean recorreValidacion(){
-
-    }*/
-
-    public int Verificacion(int nivel) {
-        int puntaje = 0;
-        ArrayList<Boolean> prueba = new ArrayList<>();
-        prueba.add(true);
-        prueba.add(true);
-        prueba.add(false);
-        prueba.add(true);
-        prueba.add(true);
-        prueba.add(false);
-        prueba.add(true);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(false);
-        prueba.add(true);
-        prueba.add(true);
-        ArrayList<Boolean> prueba2 = new ArrayList<>();
-        prueba2.add(true);
-        prueba2.add(true);
-        prueba2.add(false);
-        prueba2.add(true);
-        prueba2.add(true);
-        prueba2.add(false);
-        prueba2.add(true);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(false);
-        prueba2.add(true);
-        prueba2.add(true);
-        if (nivel == 1) {
-            for (int i = 0; i < 20; i++) {
-                if (prueba.get(i) == prueba2.get(i)) {
-                    puntaje++;
-                }
-            }
-        }
-
-        return puntaje;
-
     }
 
 

@@ -24,7 +24,7 @@ public class GUI extends JFrame {
             + "el doble de palabras que salieron al incicio.\n"
             + "Por cada una las palabras usted deberá indicar si la palabra estaba o no contenida en el\n"
             + "listado a memorizar y tendrá un tiempo de 7 segundos para responder, en caso de no hacerlo se tomará\n"
-            + "como un error. En la imagen de al lado puedes ver la cantiadad de palabras que salen por nivel y los porcentajes minimos que debes de tener para pasar de nivel\n"
+            + "como un error. En la imagen de al lado puede ver la cantiadad de palabras que salen por nivel y los porcentajes minimos que debe de tener para pasar de nivel.\n"
             + "¡¡Buena suerte :)!!";
 
     private Header headerProject;
